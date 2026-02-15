@@ -1,0 +1,64 @@
+
+
+
+.container-admin_addPorducts {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 10px auto; font-family: 'Cairo', sans-serif;
+}
+.container-admin_addPorducts h2{
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+.admin_addPorducts .section_title{
+    margin-top: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.checkbox {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.admin-Dashboard  .content .container-admin_addPorducts .checkbox input {
+    width: fit-content;
+    margin-left: 15px;
+}
+#submitBtn {
+    background-color: var(   --background-main-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;  margin: 10px auto; font-family: 'Cairo', sans-serif;
+}
+
+#submitBtn:disabled {
+    background-color: #ccc;
+}

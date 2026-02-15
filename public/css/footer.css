@@ -1,0 +1,23 @@
+footer {
+    background-color: var(--background-main-color);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    position: static;
+    bottom: 0;
+    width: 100%; /* يجعل عرض الفوتر يساوي عرض الشاشة */
+}
+
+.social-icons a {
+    color: #fff;
+    margin: 0 10px;
+}
+
+.social-icons i:hover {
+    color: var(--background-main-color);
+}
+
+body {
+    position: relative;
+    margin-bottom: 50px; /* ارتفاع الفوتر */
+}

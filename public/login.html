@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قطعتي - تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="قطعتي">
+                    <h1>قطعتي</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="/">الرئيسية</a></li>
+                        <li><a href="/">المنتجات</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Login Section -->
+        <section class="login-section">
+            <div class="login-container">
+                <h2>تسجيل الدخول</h2>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">كلمة المرور:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="accountType">نوع الحساب:</label>
+                        <select id="accountType" name="accountType" required>
+                            <option value="user">مستخدم عادي</option>
+                            <option value="seller">بائع</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-login-submit">دخول</button>
+                </form>
+                <p class="signup-link">ليس لديك حساب؟ <a href="/signup">إنشاء حساب جديد</a></p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 قطعتي - جميع الحقوق محفوظة</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const accountType = document.getElementById('accountType').value;
+
+            try {
+                // TODO: Implement authentication with Supabase
+                alert('تم تسجيل الدخول بنجاح');
+                window.location.href = '/dashboard';
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('خطأ في تسجيل الدخول');
+            }
+        }
+    </script>
+</body>
+</html>

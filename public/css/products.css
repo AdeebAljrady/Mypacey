@@ -1,0 +1,92 @@
+.products-page {
+    direction: rtl;
+    font-family: 'Cairo', sans-serif;
+}.section_title.text-center {
+    text-align: center;
+    margin: 20px 0;
+ 
+    padding: 20px;
+    border-radius: 8px;
+   
+}
+
+.search-bar-container {
+    position: relative;
+    width: 80%;
+    margin: auto;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 15px 20px 15px 40px; /* تعديل البادينغ لترك مكان للأيقونة */
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--background-main-color);
+    cursor: pointer;
+}
+.search-icon i{
+    font-size: 20px;
+}
+.search-bar:focus {
+    border-color: var(--background-main-color);
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: white;
+    background-color: var(--background-main-color);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-btn:hover {
+    background-color: #0056b3;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;    margin-bottom: 40px;
+}
+
+.pagination span {
+    cursor: pointer;
+    padding: 8px;
+    margin: 0 5px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+}
+
+.pagination .active {
+    background-color: var(--background-main-color);
+    color: white;
+}
+
+.product-card {
+    /*display: none; /* افتراضيًا تكون البطاقات غير معروضة */
+}

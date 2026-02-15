@@ -1,0 +1,78 @@
+.users_admin {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    direction: rtl; font-family: 'Cairo', sans-serif;
+}
+.container_usersadmin{
+    width: 100%;
+}
+.users_admin .section_title{
+    margin-top: 20px;
+}
+.users_admin table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+.users_admin  th,.users_admin  td {
+    text-align: right;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+.users_admin  th,.users_admin  td img {
+width: 100px;
+}
+.users_admin th {
+    background-color: var(--background-main-color);
+    color: white;    font-size: 13px;
+}
+.users_admin  tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.users_admin  tr:hover {
+    background-color: #ddd;
+}
+@media screen and (max-width: 600px) {
+    .users_admin   table,.users_admin  thead, .users_admin tbody, .users_admin th,.users_admin  td, .users_admin tr {
+        display: block;
+    }
+    .users_admin  th, .users_admin td {
+        padding: 10px;
+    }  }
+
+   .admin-Dashboard .users_admin .search-bar-container {
+        position: relative;
+        width: 80%;
+        margin: auto;
+    }
+    
+    .admin-Dashboard .users_admin .search-bar-container   .search-bar {
+        width: 100%;
+        padding: 15px 20px 15px 40px; /* تعديل البادينغ لترك مكان للأيقونة */
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 25px;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+    
+    .admin-Dashboard .users_admin .search-bar-container  .search-icon {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--background-main-color);
+        cursor: pointer;
+    }
+    .admin-Dashboard .users_admin .search-bar-container  .search-icon i{
+        font-size: 20px;
+    }
+    .admin-Dashboard .users_admin .search-bar-container  .search-bar:focus {
+        border-color: var(--background-main-color);
+    }
+    

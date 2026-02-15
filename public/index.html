@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قطعتي - متجر قطع غيار السيارات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="قطعتي">
+                    <h1>قطعتي</h1>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="/">الرئيسية</a></li>
+                        <li><a href="#products">المنتجات</a></li>
+                        <li><a href="#about">عن المتجر</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                        <li><a href="/login" class="btn-login">تسجيل الدخول</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>مرحباً بك في قطعتي</h2>
+                <p>أفضل متجر لقطع غيار السيارات الأصلية والموثوقة</p>
+                <button class="btn-primary" onclick="scrollToProducts()">تصفح المنتجات</button>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2 class="section-title">المنتجات المتاحة</h2>
+                <div class="filters">
+                    <select id="typeFilter" onchange="filterProducts()">
+                        <option value="">جميع الأنواع</option>
+                        <option value="قطع غيار">قطع غيار</option>
+                        <option value="جنوط">جنوط</option>
+                        <option value="شاشات">شاشات</option>
+                        <option value="مسجلات">مسجلات</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="ابحث عن منتج..." onkeyup="filterProducts()">
+                </div>
+                <div id="productsList" class="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 قطعتي - جميع الحقوق محفوظة</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let allProducts = [];
+
+        // Load products on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProducts();
+        });
+
+        async function loadProducts() {
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+                allProducts = products;
+                displayProducts(products);
+            } catch (error) {
+                console.error('Error loading products:', error);
+                document.getElementById('productsList').innerHTML = '<p>حدث خطأ في تحميل المنتجات</p>';
+            }
+        }
+
+        function displayProducts(products) {
+            const productsList = document.getElementById('productsList');
+            if (products.length === 0) {
+                productsList.innerHTML = '<p>لا توجد منتجات متاحة</p>';
+                return;
+            }
+
+            productsList.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="seller">البائع: ${product.seller}</p>
+                    <p class="city">المدينة: ${product.city}</p>
+                    <p class="type">النوع: ${product.type}</p>
+                    <p class="price">${product.price} ريال</p>
+                    <button class="btn-add-cart" onclick="addToCart(${product.product_id})">أضف إلى السلة</button>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            const typeFilter = document.getElementById('typeFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            const filtered = allProducts.filter(product => {
+                const matchesType = !typeFilter || product.type === typeFilter;
+                const matchesSearch = product.name.toLowerCase().includes(searchInput) || 
+                                    product.seller.toLowerCase().includes(searchInput);
+                return matchesType && matchesSearch;
+            });
+
+            displayProducts(filtered);
+        }
+
+        function addToCart(productId) {
+            alert('تم إضافة المنتج إلى السلة');
+            // TODO: Implement cart functionality
+        }
+
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
