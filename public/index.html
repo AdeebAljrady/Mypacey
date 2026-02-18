@@ -27,8 +27,7 @@
                     <li><a href="#packages">باقات السفر</a></li>
                     <li><a href="#about">من نحن</a></li>
                     <li><a href="#contact">تواصل معنا</a></li>
-                    <li><a href="/login.html" class="btn btn-outline">تسجيل الدخول</a></li>
-<li><a href="/admin-dashboard.html">لوحة التحكم</a></li>
+                    <li><a href="/admin-dashboard.html">لوحة التحكم</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,50 +37,10 @@
     <section class="hero">
         <div class="container hero-content">
             <h2>رحلتك تبدأ معنا</h2>
-            <p>استكشف أفضل الوجهات السياحية حول العالم بأسعار تنافسية وخدمات متكاملة</p>
-            <button class="btn btn-primary" onclick="scrollToPackages()">استعرض الباقات</button>
-        </div>
-    </section>
-
-    <!-- ================= Destinations ================= -->
-    <section id="destinations" class="section">
-        <div class="container">
-            <h2 class="section-title">أشهر الوجهات</h2>
-
-            <div class="product-gallery">
-                <div class="product-card">
-                    <img src="/img/turkey.jpg" class="product-image" alt="تركيا">
-                    <div class="product-details">
-                        <h3 class="product-name">تركيا</h3>
-                        <p>إسطنبول – طرابزون – أنطاليا</p>
-                        <div class="button-row">
-                            <button class="btn btn-primary">عرض العروض</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <img src="/img/malaysia.jpg" class="product-image" alt="ماليزيا">
-                    <div class="product-details">
-                        <h3 class="product-name">ماليزيا</h3>
-                        <p>كوالالمبور – لنكاوي – بينانج</p>
-                        <div class="button-row">
-                            <button class="btn btn-primary">عرض العروض</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <img src="/img/dubai.jpg" class="product-image" alt="دبي">
-                    <div class="product-details">
-                        <h3 class="product-name">دبي</h3>
-                        <p>فنادق فاخرة – أنشطة سياحية – رحلات بحرية</p>
-                        <div class="button-row">
-                            <button class="btn btn-primary">عرض العروض</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p>استكشف أفضل الوجهات السياحية بأسعار مدروسة وخدمات متكاملة</p>
+            <button class="btn btn-primary" onclick="scrollToPackages()">
+                استعرض الباقات
+            </button>
         </div>
     </section>
 
@@ -98,31 +57,13 @@
                     <option value="دبي">دبي</option>
                 </select>
 
-                <input type="text" id="searchInput" placeholder="ابحث عن باقة..." onkeyup="filterPackages()">
+                <input type="text"
+                       id="searchInput"
+                       placeholder="ابحث عن باقة..."
+                       onkeyup="filterPackages()">
             </div>
 
             <div id="packagesList" class="product-gallery"></div>
-        </div>
-    </section>
-
-    <!-- ================= About ================= -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">من نحن</h2>
-            <p>
-                التلبية للسفريات والسياحة شركة متخصصة في تنظيم الرحلات السياحية،
-                حجز الفنادق، إصدار التذاكر، وتنظيم البرامج المتكاملة للأفراد والعائلات.
-                نركز على الجودة، الشفافية، وتجربة سفر مريحة من البداية حتى العودة.
-            </p>
-        </div>
-    </section>
-
-    <!-- ================= Contact ================= -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title">تواصل معنا</h2>
-            <p>للاستفسار والحجز: info@altalbiya-travel.com</p>
-            <p>الهاتف: +967 000 000 000</p>
         </div>
     </section>
 
@@ -139,6 +80,7 @@
 
 <script>
 
+    // بيانات تجريبية (يمكن استبدالها لاحقًا بـ API)
     const packages = [
         {
             id: 1,
@@ -161,7 +103,7 @@
             name: "باقة دبي 4 أيام",
             country: "دبي",
             price: 700,
-            description: "فندق 4 نجوم + تذاكر فعاليات",
+            description: "فندق 4 نجوم + فعاليات سياحية",
             image: "/img/dubai.jpg"
         }
     ];
@@ -170,37 +112,27 @@
         displayPackages(packages);
     });
 
-    function displayPackages(packages) {
-    const list = document.getElementById('packagesList');
+    function displayPackages(packagesData) {
+        const list = document.getElementById('packagesList');
 
-    if (packages.length === 0) {
-        list.innerHTML = '<p>لا توجد باقات متاحة حالياً</p>';
-        return;
-    }
+        if (packagesData.length === 0) {
+            list.innerHTML = '<p>لا توجد باقات متاحة حالياً</p>';
+            return;
+        }
 
-    list.innerHTML = packages.map(pkg => `
-        <div class="package-card">
-            <img src="${pkg.image}" alt="${pkg.title}">
-            <h3>${pkg.title}</h3>
-            <p>${pkg.destination}</p>
-            <p>${pkg.price} ريال</p>
-
-            <a href="/package-details.html?id=${pkg.package_id}" class="btn-primary">
-                عرض التفاصيل
-            </a>
-        </div>
-    `).join('');
-}
-        container.innerHTML = data.map(pkg => `
+        list.innerHTML = packagesData.map(pkg => `
             <div class="product-card">
                 <img src="${pkg.image}" class="product-image" alt="${pkg.name}">
                 <div class="product-details">
                     <h3 class="product-name">${pkg.name}</h3>
                     <p>${pkg.description}</p>
-                    <p class="product-price">${pkg.price} دولار</p>
+                    <p class="product-price">${pkg.price} ريال</p>
+
                     <div class="button-row">
-                        <button class="btn btn-primary">احجز الآن</button>
-                        <button class="btn btn-outline">تفاصيل</button>
+                        <a href="/package-details.html?id=${pkg.id}" 
+                           class="btn btn-primary">
+                           تفاصيل الباقة
+                        </a>
                     </div>
                 </div>
             </div>
@@ -221,9 +153,9 @@
     }
 
     function scrollToPackages() {
-        document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('packages')
+            .scrollIntoView({ behavior: 'smooth' });
     }
-
 
 </script>
 
