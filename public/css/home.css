@@ -3,8 +3,8 @@
 /* ============================= */
 
 :root {
-    --primary: #c1121f;
-    --primary-light: #e63946;
+    --primary: #c1121f;        /* الأحمر الأساسي */
+    --primary-light: #e63946;  /* درجة أفتح */
     --bg-light: #f5f7fa;
     --text-dark: #222;
     --text-muted: #666;
@@ -66,7 +66,7 @@ ul {
 }
 
 /* ============================= */
-/* Buttons System */
+/* Buttons */
 /* ============================= */
 
 .btn {
@@ -109,7 +109,8 @@ ul {
 /* ============================= */
 
 .header {
-    background: #fff;
+    background: var(--primary);
+    color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
@@ -126,8 +127,10 @@ ul {
     gap: 10px;
 }
 
-
-
+.nav ul {
+    display: flex;
+    gap: 20px;
+}
 
 .nav a {
     color: #fff;
@@ -140,13 +143,13 @@ ul {
 }
 
 /* ============================= */
-/* Hero Section */
+/* Hero */
 /* ============================= */
 
 .hero {
     padding: 80px 0;
     text-align: center;
-    background: linear-gradient(to bottom, #ffffff, #eef3fb);
+    background: linear-gradient(to bottom, #ffffff, #ffe5e7);
 }
 
 .hero h2 {
@@ -251,14 +254,12 @@ ul {
 /* ============================= */
 
 .footer {
-    
+    background: var(--primary);
+    color: #fff;
     padding: 25px 0;
     text-align: center;
     margin-top: 60px;
     font-size: 0.9rem;
-    
-background: var(--primary);
-    color: #fff;
 }
 
 /* ============================= */
@@ -279,11 +280,13 @@ background: var(--primary);
     .nav ul {
         flex-wrap: wrap;
         justify-content: center;
-        display: flex;
-        gap: 20px;
     }
 
     .button-row {
         flex-direction: column;
+    }
+
+    .hero h2 {
+        font-size: 1.6rem;
     }
 }
