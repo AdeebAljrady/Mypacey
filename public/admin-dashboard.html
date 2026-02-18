@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم - إدارة الباقات</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <h1>لوحة إدارة الباقات</h1>
+    </div>
+</header>
+
+<section class="admin-section">
+    <div class="container">
+
+        <h2>إضافة باقة جديدة</h2>
+        <form id="packageForm">
+            <input type="text" id="title" placeholder="اسم الباقة" required>
+            <input type="text" id="destination" placeholder="الوجهة" required>
+            <input type="number" id="duration" placeholder="عدد الأيام" required>
+            <input type="number" id="price" placeholder="السعر" required>
+            <input type="text" id="image" placeholder="رابط الصورة" required>
+            <textarea id="description" placeholder="وصف الباقة"></textarea>
+            <button type="submit">حفظ</button>
+        </form>
+
+        <h2>الباقات الحالية</h2>
+        <div id="packagesList"></div>
+
+    </div>
+</section>
+
+<script>
+let editingId = null;
+
+document.addEventListener('DOMContentLoaded', loadPackages);
+
+async function loadPackages() {
+    const res = await fetch('/api/admin/packages');
+    const data = await res.json();
+
+    document.getElementById('packagesList').innerHTML = data.map(p => `
+        <div class="admin-card">
+            <h3>${p.title}</h3>
+            <p>${p.destination} - ${p.price} ريال</p>
+            <button onclick="editPackage(${p.package_id})">تعديل</button>
+            <button onclick="deletePackage(${p.package_id})">حذف</button>
+        </div>
+    `).join('');
+}
+
+document.getElementById('packageForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const packageData = {
+        title: title.value,
+        destination: destination.value,
+        duration: duration.value,
+        price: price.value,
+        image: image.value,
+        description: description.value
+    };
+
+    const method = editingId ? 'PUT' : 'POST';
+    const url = editingId ? `/api/admin/packages/${editingId}` : '/api/admin/packages';
+
+    await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(packageData)
+    });
+
+    editingId = null;
+    e.target.reset();
+    loadPackages();
+});
+
+async function editPackage(id) {
+    const res = await fetch(`/api/packages/${id}`);
+    const data = await res.json();
+
+    title.value = data.title;
+    destination.value = data.destination;
+    duration.value = data.duration;
+    price.value = data.price;
+    image.value = data.image;
+    description.value = data.description;
+
+    editingId = id;
+}
+
+async function deletePackage(id) {
+    if (!confirm("هل أنت متأكد من الحذف؟")) return;
+
+    await fetch(`/api/admin/packages/${id}`, { method: 'DELETE' });
+    loadPackages();
+}
+</script>
+
+</body>
+</html>
