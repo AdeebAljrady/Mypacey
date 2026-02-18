@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الباقة - التلبية للسفريات</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <h1>التلبية للسفريات</h1>
+        <a href="/" class="btn-back">العودة للرئيسية</a>
+    </div>
+</header>
+
+<section class="package-details">
+    <div class="container">
+        <div id="packageContent"></div>
+
+        <div class="booking-box">
+            <h3>حجز الباقة</h3>
+            <form id="bookingForm">
+                <input type="text" id="fullName" placeholder="الاسم الكامل" required>
+                <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+                <input type="tel" id="phone" placeholder="رقم الجوال" required>
+                <input type="number" id="persons" placeholder="عدد المسافرين" min="1" required>
+                <input type="date" id="travelDate" required>
+                <button type="submit" class="btn-primary">تأكيد الحجز</button>
+            </form>
+            <div id="bookingMessage"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const packageId = urlParams.get('id');
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadPackage();
+});
+
+async function loadPackage() {
+    try {
+        const res = await fetch(`/api/packages/${packageId}`);
+        const data = await res.json();
+
+        document.getElementById('packageContent').innerHTML = `
+            <img src="${data.image}" class="package-image">
+            <h2>${data.title}</h2>
+            <p>${data.description}</p>
+            <p><strong>الوجهة:</strong> ${data.destination}</p>
+            <p><strong>المدة:</strong> ${data.duration} أيام</p>
+            <p><strong>السعر:</strong> ${data.price} ريال</p>
+        `;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const bookingData = {
+        package_id: packageId,
+        full_name: fullName.value,
+        email: email.value,
+        phone: phone.value,
+        persons: persons.value,
+        travel_date: travelDate.value
+    };
+
+    try {
+        const res = await fetch('/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData)
+        });
+
+        const result = await res.json();
+        document.getElementById('bookingMessage').innerText = "تم إرسال طلب الحجز بنجاح";
+        e.target.reset();
+    } catch (err) {
+        document.getElementById('bookingMessage').innerText = "حدث خطأ أثناء الحجز";
+    }
+});
+</script>
+
+</body>
+</html>
