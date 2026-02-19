@@ -1,66 +1,71 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - إدارة الباقات</title>
+
+    <!-- CSS العام -->
     <link rel="stylesheet" href="/css/main.css">
+
+    <!-- CSS خاص بلوحة التحكم -->
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 
-<header class="header">
-   
-<div class="container_header">
+<div class="admin-wrapper">
 
-    <div class="logo">
-        <img src="/img/logo.png" alt="التلبية">
-        <h1>التلبية</h1>
-    </div>
+    <!-- القائمة الجانبية -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <h2>لوحة التحكم</h2>
+        </div>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-        ☰
-    </div>
+        <ul class="sidebar-menu">
+            <li><a href="/admin-dashboard.html" class="active">إدارة الباقات</a></li>
+            <li><a href="/">⬅ الرجوع للرئيسية</a></li>
+        </ul>
+    </aside>
 
-    <ul class="links">
-        <li><a href="/">الرئيسية</a></li>
-        <li><a href="#destinations">الوجهات</a></li>
-        <li><a href="#packages">باقات السفر</a></li>
-        <li><a href="#about">من نحن</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
-        <li><a href="/admin-dashboard.html">لوحة التحكم</a></li>
-    </ul>
+    <!-- المحتوى الرئيسي -->
+    <main class="admin-content">
+
+        <div class="admin-topbar">
+            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+            <h1>إدارة الباقات</h1>
+        </div>
+
+        <section class="admin-section">
+
+            <h2>إضافة / تعديل باقة</h2>
+
+            <form id="packageForm" class="admin-form">
+                <input type="text" id="title" placeholder="اسم الباقة" required>
+                <input type="text" id="destination" placeholder="الوجهة" required>
+                <input type="number" id="duration" placeholder="عدد الأيام" required>
+                <input type="number" id="price" placeholder="السعر" required>
+                <input type="text" id="image" placeholder="رابط الصورة" required>
+                <textarea id="description" placeholder="وصف الباقة"></textarea>
+                <button type="submit">حفظ</button>
+            </form>
+
+            <h2>الباقات الحالية</h2>
+            <div id="packagesList" class="admin-packages"></div>
+
+        </section>
+
+    </main>
 
 </div>
- 
-</header>
-<div class="container">
-        <h1>لوحة إدارة الباقات</h1>
-    </div>
-
-<section class="admin-section">
-    <div class="container">
-
-        <h2>إضافة باقة جديدة</h2>
-        <form id="packageForm">
-            <input type="text" id="title" placeholder="اسم الباقة" required>
-            <input type="text" id="destination" placeholder="الوجهة" required>
-            <input type="number" id="duration" placeholder="عدد الأيام" required>
-            <input type="number" id="price" placeholder="السعر" required>
-            <input type="text" id="image" placeholder="رابط الصورة" required>
-            <textarea id="description" placeholder="وصف الباقة"></textarea>
-            <button type="submit">حفظ</button>
-        </form>
-
-        <h2>الباقات الحالية</h2>
-        <div id="packagesList"></div>
-
-    </div>
-</section>
 
 <script>
 let editingId = null;
 
 document.addEventListener('DOMContentLoaded', loadPackages);
+
+function toggleSidebar() {
+    document.querySelector('.admin-sidebar').classList.toggle('active');
+}
 
 async function loadPackages() {
     const res = await fetch('/api/admin/packages');
@@ -70,8 +75,10 @@ async function loadPackages() {
         <div class="admin-card">
             <h3>${p.title}</h3>
             <p>${p.destination} - ${p.price} ريال</p>
-            <button onclick="editPackage(${p.package_id})">تعديل</button>
-            <button onclick="deletePackage(${p.package_id})">حذف</button>
+            <div class="card-actions">
+                <button onclick="editPackage(${p.package_id})">تعديل</button>
+                <button onclick="deletePackage(${p.package_id})" class="danger">حذف</button>
+            </div>
         </div>
     `).join('');
 }
@@ -89,7 +96,9 @@ document.getElementById('packageForm').addEventListener('submit', async (e) => {
     };
 
     const method = editingId ? 'PUT' : 'POST';
-    const url = editingId ? `/api/admin/packages/${editingId}` : '/api/admin/packages';
+    const url = editingId 
+        ? `/api/admin/packages/${editingId}` 
+        : '/api/admin/packages';
 
     await fetch(url, {
         method,
