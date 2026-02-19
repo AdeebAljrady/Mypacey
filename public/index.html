@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,170 +7,173 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/home-nav.css">
 </head>
 
 <body>
 
 <div id="app">
 
-    <!-- ================= Header ================= -->
-    <header class="header">
- 
-<div class="container_header">
+<!-- ================= Header ================= -->
 
-    <div class="logo">
-        <img src="/img/logo.png" alt="التلبية">
-        <h1>التلبية</h1>
+<header class="page-header">
+
+    <div class="header-container">
+
+        <div class="logo">
+            <img src="/img/logo.png" alt="التلبية">
+            <h2>التلبية</h2>
+        </div>
+
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <a href="/">الرئيسية</a>
+            <a href="#destinations">الوجهات</a>
+            <a href="#packages">باقات السفر</a>
+            <a href="#about">من نحن</a>
+            <a href="#contact">تواصل معنا</a>
+            <a href="/admin-dashboard.html">لوحة التحكم</a>
+        </nav>
+
     </div>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-        ☰
+</header>
+
+<!-- Sidebar Mobile -->
+<aside class="mobile-sidebar">
+    <a href="/">الرئيسية</a>
+    <a href="#destinations">الوجهات</a>
+    <a href="#packages">باقات السفر</a>
+    <a href="#about">من نحن</a>
+    <a href="#contact">تواصل معنا</a>
+    <a href="/admin-dashboard.html">لوحة التحكم</a>
+</aside>
+
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ================= Hero ================= -->
+
+<section class="hero">
+    <div class="container hero-content">
+        <h2>رحلتك تبدأ معنا</h2>
+        <p>استكشف أفضل الوجهات السياحية بأسعار مدروسة وخدمات متكاملة</p>
+        <button class="btn btn-primary" onclick="scrollToPackages()">
+            استعرض الباقات
+        </button>
     </div>
+</section>
 
-    <ul class="links">
-        <li><a href="/">الرئيسية</a></li>
-        <li><a href="#destinations">الوجهات</a></li>
-        <li><a href="#packages">باقات السفر</a></li>
-        <li><a href="#about">من نحن</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
-        <li><a href="/admin-dashboard.html">لوحة التحكم</a></li>
-    </ul>
+<!-- ================= Travel Packages ================= -->
 
-</div>
-    </header>
+<section id="packages" class="section">
+    <div class="container">
+        <h2 class="section-title">باقات السفر المميزة</h2>
 
-    <!-- ================= Hero ================= -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h2>رحلتك تبدأ معنا</h2>
-            <p>استكشف أفضل الوجهات السياحية بأسعار مدروسة وخدمات متكاملة</p>
-            <button class="btn btn-primary" onclick="scrollToPackages()">
-                استعرض الباقات
-            </button>
+        <div class="filters">
+            <select id="countryFilter" onchange="filterPackages()">
+                <option value="">كل الوجهات</option>
+                <option value="تركيا">تركيا</option>
+                <option value="ماليزيا">ماليزيا</option>
+                <option value="دبي">دبي</option>
+            </select>
+
+            <input type="text"
+                   id="searchInput"
+                   placeholder="ابحث عن باقة..."
+                   onkeyup="filterPackages()">
         </div>
-    </section>
 
-    <!-- ================= Travel Packages ================= -->
-    <section id="packages" class="section">
-        <div class="container">
-            <h2 class="section-title">باقات السفر المميزة</h2>
+        <div id="packagesList" class="product-gallery"></div>
+    </div>
+</section>
 
-            <div class="filters">
-                <select id="countryFilter" onchange="filterPackages()">
-                    <option value="">كل الوجهات</option>
-                    <option value="تركيا">تركيا</option>
-                    <option value="ماليزيا">ماليزيا</option>
-                    <option value="دبي">دبي</option>
-                </select>
+<!-- ================= Footer ================= -->
 
-                <input type="text"
-                       id="searchInput"
-                       placeholder="ابحث عن باقة..."
-                       onkeyup="filterPackages()">
-            </div>
-
-            <div id="packagesList" class="product-gallery"></div>
-        </div>
-    </section>
-
-    <!-- ================= Footer ================= -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 التلبية للسفريات والسياحة - جميع الحقوق محفوظة</p>
-        </div>
-    </footer>
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 التلبية للسفريات والسياحة - جميع الحقوق محفوظة</p>
+    </div>
+</footer>
 
 </div>
 
 <!-- ================= Script ================= -->
 
 <script>
+function toggleSidebar() {
+    document.querySelector('.mobile-sidebar')
+        .classList.toggle('active');
 
-    // بيانات تجريبية (يمكن استبدالها لاحقًا بـ API)
-    const packages = [
-        {
-            id: 1,
-            name: "باقة إسطنبول 5 أيام",
-            country: "تركيا",
-            price: 850,
-            description: "إقامة 4 نجوم + إفطار + جولات سياحية",
-            image: "/img/turkey.jpg"
-        },
-        {
-            id: 2,
-            name: "باقة كوالالمبور 7 أيام",
-            country: "ماليزيا",
-            price: 1200,
-            description: "إقامة 5 نجوم + تنقلات + جولات",
-            image: "/img/malaysia.jpg"
-        },
-        {
-            id: 3,
-            name: "باقة دبي 4 أيام",
-            country: "دبي",
-            price: 700,
-            description: "فندق 4 نجوم + فعاليات سياحية",
-            image: "/img/dubai.jpg"
-        }
-    ];
-
-    document.addEventListener('DOMContentLoaded', () => {
-        displayPackages(packages);
-    });
-
-    function displayPackages(packagesData) {
-        const list = document.getElementById('packagesList');
-
-        if (packagesData.length === 0) {
-            list.innerHTML = '<p>لا توجد باقات متاحة حالياً</p>';
-            return;
-        }
-
-        list.innerHTML = packagesData.map(pkg => `
-            <div class="product-card">
-                <img src="${pkg.image}" class="product-image" alt="${pkg.name}">
-                <div class="product-details">
-                    <h3 class="product-name">${pkg.name}</h3>
-                    <p>${pkg.description}</p>
-                    <p class="product-price">${pkg.price} ريال</p>
-
-                    <div class="button-row">
-                        <a href="/package-details.html?id=${pkg.id}" 
-                           class="btn btn-primary">
-                           تفاصيل الباقة
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function filterPackages() {
-        const country = document.getElementById('countryFilter').value;
-        const search = document.getElementById('searchInput').value.toLowerCase();
-
-        const filtered = packages.filter(pkg => {
-            const matchCountry = !country || pkg.country === country;
-            const matchSearch = pkg.name.toLowerCase().includes(search);
-            return matchCountry && matchSearch;
-        });
-
-        displayPackages(filtered);
-    }
-
-    function scrollToPackages() {
-        document.getElementById('packages')
-            .scrollIntoView({ behavior: 'smooth' });
-    }
-
-</script>
-
-
-<script>
-function toggleMenu() {
-    document.querySelector('header .links')
+    document.querySelector('.sidebar-overlay')
         .classList.toggle('active');
 }
+
+function closeSidebar() {
+    document.querySelector('.mobile-sidebar')
+        .classList.remove('active');
+
+    document.querySelector('.sidebar-overlay')
+        .classList.remove('active');
+}
+
+/* ===== بيانات الباقات ===== */
+
+const packages = [
+    { id:1,name:"باقة إسطنبول 5 أيام",country:"تركيا",price:850,description:"إقامة 4 نجوم + إفطار + جولات سياحية",image:"/img/turkey.jpg"},
+    { id:2,name:"باقة كوالالمبور 7 أيام",country:"ماليزيا",price:1200,description:"إقامة 5 نجوم + تنقلات + جولات",image:"/img/malaysia.jpg"},
+    { id:3,name:"باقة دبي 4 أيام",country:"دبي",price:700,description:"فندق 4 نجوم + فعاليات سياحية",image:"/img/dubai.jpg"}
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    displayPackages(packages);
+});
+
+function displayPackages(packagesData) {
+    const list = document.getElementById('packagesList');
+
+    if (packagesData.length === 0) {
+        list.innerHTML = '<p>لا توجد باقات متاحة حالياً</p>';
+        return;
+    }
+
+    list.innerHTML = packagesData.map(pkg => `
+        <div class="product-card">
+            <img src="${pkg.image}" class="product-image" alt="${pkg.name}">
+            <div class="product-details">
+                <h3 class="product-name">${pkg.name}</h3>
+                <p>${pkg.description}</p>
+                <p class="product-price">${pkg.price} ريال</p>
+                <div class="button-row">
+                    <a href="/package-details.html?id=${pkg.id}" 
+                       class="btn btn-primary">
+                       تفاصيل الباقة
+                    </a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterPackages() {
+    const country = document.getElementById('countryFilter').value;
+    const search = document.getElementById('searchInput').value.toLowerCase();
+
+    const filtered = packages.filter(pkg => {
+        const matchCountry = !country || pkg.country === country;
+        const matchSearch = pkg.name.toLowerCase().includes(search);
+        return matchCountry && matchSearch;
+    });
+
+    displayPackages(filtered);
+}
+
+function scrollToPackages() {
+    document.getElementById('packages')
+        .scrollIntoView({ behavior: 'smooth' });
+}
 </script>
+
 </body>
 </html>
