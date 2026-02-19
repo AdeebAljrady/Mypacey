@@ -133,7 +133,7 @@ header .links li a {
 }
 
 header .links li:last-child a {
-    color: var(--white);
+    color: var(--black);
 }
 
 header .links li:last-child {
