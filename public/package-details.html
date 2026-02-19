@@ -45,6 +45,7 @@
     <a href="/#contact">تواصل معنا</a>
     <a href="/admin-dashboard.html">لوحة التحكم</a>
 </aside>
+<div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <main class="page-content">
 
@@ -79,6 +80,17 @@
 function toggleSidebar() {
     document.querySelector('.mobile-sidebar')
         .classList.toggle('active');
+
+    document.querySelector('.sidebar-overlay')
+        .classList.toggle('active');
+}
+
+function closeSidebar() {
+    document.querySelector('.mobile-sidebar')
+        .classList.remove('active');
+
+    document.querySelector('.sidebar-overlay')
+        .classList.remove('active');
 }
 
 const urlParams = new URLSearchParams(window.location.search);
