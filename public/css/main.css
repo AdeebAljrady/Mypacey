@@ -431,6 +431,66 @@ div.two-buttons-flex button.secondary-button {
  header .links li:not(:last-child):hover a {
     color: var(--background-main-color);
 }
+
+/* =========================
+   Responsive Navigation
+========================= */
+
+/* زر القائمة */
+header .menu-toggle {
+    display: none;
+    font-size: 26px;
+    color: var(--background-main-color);
+    cursor: pointer;
+}
+
+/* ===== الهاتف ===== */
+@media (max-width: 767px) {
+
+    header .container_header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header .menu-toggle {
+        display: block;
+    }
+
+    header .links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+        background: var(--background-linear-A);
+        padding: 15px 0;
+        border-radius: 8px;
+        box-shadow: var(--box-shadowB);
+    }
+
+    header .links.active {
+        display: flex;
+    }
+
+    header .links li {
+        margin: 10px 0;
+    }
+
+}
+
+/* ===== التابلت ===== */
+@media (min-width: 768px) and (max-width: 992px) {
+
+    header .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    header .menu-toggle {
+        display: none;
+    }
+}
 /*****************//*******.section_title**********//**********.section_title*******//***.section_title**************//**.section_title***************/
 .section_title {
     margin-bottom: 40px;    text-align: center;
