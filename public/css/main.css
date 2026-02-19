@@ -526,8 +526,6 @@ header .menu-toggle {
     margin: auto;
     font-family: var(--font-family-Cairo);
 
-
-
 }
 
 @media (max-width: 720px) {
@@ -545,4 +543,105 @@ header .menu-toggle {
         width: 95%;
 
     }
+}
+/* =========================
+   Sidebar Mobile & Overlay
+========================= */
+
+.mobile-sidebar {
+    position: fixed;
+    right: -250px;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: var(--background-main-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.mobile-sidebar a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.mobile-sidebar.active {
+    right: 0;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================
+   Header Desktop / Mobile
+========================= */
+
+header .desktop-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+header .desktop-nav a {
+    text-decoration: none;
+    color: var(--gray);
+    transition: 0.3s;
+}
+
+header .desktop-nav a:hover {
+    color: var(--background-main-color);
+}
+
+/* زر القائمة للهواتف */
+header .menu-toggle {
+    display: none;
+    font-size: 26px;
+    color: var(--background-main-color);
+    cursor: pointer;
+}
+
+/* ===== الهاتف ===== */
+@media (max-width: 767px) {
+
+    header .desktop-nav {
+        display: none;
     }
+
+    header .menu-toggle {
+        display: block;
+    }
+
+    /* إخفاء روابط الهيدر الأساسية عند الهاتف */
+    header .links {
+        display: none;
+    }
+
+}
+
+/* ===== التابلت ===== */
+@media (min-width: 768px) and (max-width: 992px) {
+    header .desktop-nav {
+        display: flex;
+        gap: 15px;
+    }
+
+    header .menu-toggle {
+        display: none;
+    }
+}
