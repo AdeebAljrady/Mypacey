@@ -5,59 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - إدارة الباقات</title>
 
-    <!-- CSS العام -->
     <link rel="stylesheet" href="/css/main.css">
-
-    <!-- CSS خاص بلوحة التحكم -->
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 
-<div class="admin-wrapper">
+<header class="admin-header">
 
-    <!-- القائمة الجانبية -->
-    <aside class="admin-sidebar">
-        <div class="sidebar-header">
-            <h2>لوحة التحكم</h2>
+    <div class="admin-header-container">
+
+        <div class="logo">
+            <h2>التلبية</h2>
         </div>
 
-        <ul class="sidebar-menu">
-            <li><a href="/admin-dashboard.html" class="active">إدارة الباقات</a></li>
-            <li><a href="/">⬅ الرجوع للرئيسية</a></li>
-        </ul>
-    </aside>
+        <!-- زر القائمة للهاتف -->
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="admin-content">
+        <!-- روابط الكمبيوتر -->
+        <nav class="desktop-nav">
+            <a href="/">الرئيسية</a>
+            <a href="/admin-dashboard.html" class="active">إدارة الباقات</a>
+        </nav>
 
-        <div class="admin-topbar">
-            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
-            <h1>إدارة الباقات</h1>
-        </div>
+    </div>
 
-        <section class="admin-section">
+</header>
 
-            <h2>إضافة / تعديل باقة</h2>
+<!-- Sidebar (يعمل فقط في الهاتف) -->
+<aside class="admin-sidebar">
+    <a href="/">الرئيسية</a>
+    <a href="/admin-dashboard.html">إدارة الباقات</a>
+</aside>
 
-            <form id="packageForm" class="admin-form">
-                <input type="text" id="title" placeholder="اسم الباقة" required>
-                <input type="text" id="destination" placeholder="الوجهة" required>
-                <input type="number" id="duration" placeholder="عدد الأيام" required>
-                <input type="number" id="price" placeholder="السعر" required>
-                <input type="text" id="image" placeholder="رابط الصورة" required>
-                <textarea id="description" placeholder="وصف الباقة"></textarea>
-                <button type="submit">حفظ</button>
-            </form>
+<main class="admin-content">
 
-            <h2>الباقات الحالية</h2>
-            <div id="packagesList" class="admin-packages"></div>
+    <section class="admin-section">
 
-        </section>
+        <h1>إدارة الباقات</h1>
 
-    </main>
+        <form id="packageForm" class="admin-form">
+            <input type="text" id="title" placeholder="اسم الباقة" required>
+            <input type="text" id="destination" placeholder="الوجهة" required>
+            <input type="number" id="duration" placeholder="عدد الأيام" required>
+            <input type="number" id="price" placeholder="السعر" required>
+            <input type="text" id="image" placeholder="رابط الصورة" required>
+            <textarea id="description" placeholder="وصف الباقة"></textarea>
+            <button type="submit">حفظ</button>
+        </form>
 
-</div>
+        <h2>الباقات الحالية</h2>
+        <div id="packagesList" class="admin-packages"></div>
 
+    </section>
+
+</main>
+
+<script>
+function toggleSidebar() {
+    document.querySelector('.admin-sidebar')
+        .classList.toggle('active');
+}
+</script>
 <script>
 let editingId = null;
 
