@@ -321,8 +321,9 @@ ul {
     }
 
     .header .container {
-        flex-direction: column;
+        
         gap: 15px;
+        flex-direction: row;
     }
 
     .nav ul {
@@ -336,5 +337,13 @@ ul {
 
     .hero h2 {
         font-size: 1.6rem;
+    }
+.desktop-nav {
+        display: none;
+    }
+
+    /* إظهار زر القائمة */
+    .menu-toggle {
+        display: block;
     }
 }
