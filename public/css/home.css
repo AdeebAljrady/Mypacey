@@ -126,7 +126,9 @@ ul {
     display: flex;
     align-items: center;
     gap: 10px;
+    order: 3;
 }
+
 
 /* روابط الديسكتوب في الوسط */
 .desktop-nav {
@@ -138,6 +140,7 @@ ul {
 /* روابط الديسكتوب */
 .desktop-nav {
     display: flex;
+    order: 2;
     gap: 20px;
     align-items: center;
   /*  margin-inline-start: 40px; */
@@ -161,6 +164,7 @@ ul {
     font-size: 26px;
     color: #fff;                 /* أبيض فوق الخلفية الحمراء */
     cursor: pointer;
+     order: 1;
 }
 
 /* ============================= */
