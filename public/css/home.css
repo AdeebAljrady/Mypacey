@@ -117,14 +117,22 @@ ul {
 .header-container {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* هذا ضروري */
     padding: 15px 20px;
 }
 
-/* الشعار في اليمين */
+/* الشعار يمين */
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+/* روابط الديسكتوب في الوسط */
+.desktop-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 /* روابط الديسكتوب */
@@ -132,7 +140,7 @@ ul {
     display: flex;
     gap: 20px;
     align-items: center;
-    margin-inline-start: 40px;
+  /*  margin-inline-start: 40px; */
 }
 
 .desktop-nav a {
@@ -153,7 +161,6 @@ ul {
     font-size: 26px;
     color: #fff;                 /* أبيض فوق الخلفية الحمراء */
     cursor: pointer;
-    margin-inline-start: auto;   /* يدفعه لأقصى اليسار */
 }
 
 /* ============================= */
@@ -310,6 +317,9 @@ ul {
         display: block;
     }
 
+    .header-container {
+        justify-content: space-between; /* مهم */
+    }
     .button-row {
         flex-direction: column;
     }
