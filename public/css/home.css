@@ -126,7 +126,7 @@ ul {
     display: flex;
     align-items: center;
     gap: 10px;
-    order: 3;
+    order: 6;
 }
 
 
@@ -140,7 +140,7 @@ ul {
 /* روابط الديسكتوب */
 .desktop-nav {
     display: flex;
-    order: 2;
+    order: 4;
     gap: 20px;
     align-items: center;
   /*  margin-inline-start: 40px; */
