@@ -108,6 +108,54 @@ ul {
 /* Header */
 /* ============================= */
 
+/* ================= Header Layout ================= */
+
+.page-header {
+    background: var(--primary);
+    color: #fff;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+}
+
+/* ترتيب العناصر: شعار يمين - روابط وسط - زر يسار */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* روابط سطح المكتب */
+.desktop-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.desktop-nav a {
+    color: #fff;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.desktop-nav a:hover {
+    opacity: 0.8;
+}
+
+/* زر القائمة مخفي في الديسكتوب */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: #fff;
+    cursor: pointer;
+}
+
 .header {
     background: var(--primary);
     color: #fff;
