@@ -3,8 +3,8 @@
 /* ============================= */
 
 :root {
-    --primary: #c1121f;        /* الأحمر الأساسي */
-    --primary-light: #e63946;  /* درجة أفتح */
+    --primary: #c1121f;
+    --primary-light: #e63946;
     --bg-light: #f5f7fa;
     --text-dark: #222;
     --text-muted: #666;
@@ -108,32 +108,31 @@ ul {
 /* Header */
 /* ============================= */
 
-/* ================= Header Layout ================= */
-
 .page-header {
     background: var(--primary);
     color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 15px 20px;
 }
 
-/* ترتيب العناصر: شعار يمين - روابط وسط - زر يسار */
+/* الشعار في اليمين */
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* روابط سطح المكتب */
+/* روابط الديسكتوب */
 .desktop-nav {
     display: flex;
     gap: 20px;
     align-items: center;
+    margin-inline-start: 40px;
 }
 
 .desktop-nav a {
@@ -146,48 +145,15 @@ ul {
     opacity: 0.8;
 }
 
-/* زر القائمة مخفي في الديسكتوب */
+/* زر القائمة */
 .menu-toggle {
     display: none;
     background: none;
     border: none;
     font-size: 26px;
-    color: #fff;
+    color: #fff;                 /* أبيض فوق الخلفية الحمراء */
     cursor: pointer;
-}
-
-.header {
-    background: var(--primary);
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-block: 15px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.nav ul {
-    display: flex;
-    gap: 20px;
-}
-
-.nav a {
-    color: #fff;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.nav a:hover {
-    opacity: 0.8;
+    margin-inline-start: auto;   /* يدفعه لأقصى اليسار */
 }
 
 /* ============================= */
@@ -208,35 +174,6 @@ ul {
 .hero p {
     color: var(--text-muted);
     margin-bottom: 25px;
-}
-
-/* ============================= */
-/* Features */
-/* ============================= */
-
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.feature {
-    background: #fff;
-    padding: 25px;
-    border-radius: var(--radius);
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: var(--transition);
-}
-
-.feature:hover {
-    transform: translateY(-5px);
-}
-
-.feature i {
-    font-size: 32px;
-    color: var(--primary);
-    margin-bottom: 10px;
 }
 
 /* ============================= */
@@ -311,6 +248,49 @@ ul {
 }
 
 /* ============================= */
+/* Sidebar (Mobile) */
+/* ============================= */
+
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100%;
+    background: #fff;
+    padding: 30px 20px;
+    box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.mobile-sidebar a {
+    display: block;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.mobile-sidebar.active {
+    right: 0;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================= */
 /* Responsive */
 /* ============================= */
 
@@ -320,15 +300,14 @@ ul {
         font-size: 14px;
     }
 
-    .header .container {
-        
-        gap: 15px;
-        flex-direction: row;
+    /* إخفاء روابط الديسكتوب */
+    .desktop-nav {
+        display: none;
     }
 
-    .nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
+    /* إظهار زر القائمة */
+    .menu-toggle {
+        display: block;
     }
 
     .button-row {
@@ -337,13 +316,5 @@ ul {
 
     .hero h2 {
         font-size: 1.6rem;
-    }
-.desktop-nav {
-        display: none;
-    }
-
-    /* إظهار زر القائمة */
-    .menu-toggle {
-        display: block;
     }
 }
