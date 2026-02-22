@@ -1,86 +1,241 @@
-/* =========================
-   Admin Header
-========================= */
+/* =============================
+   Admin Layout
+============================= */
+
+body {
+    background: #f4f6f9;
+}
 
 .admin-header {
-    background: #1e293b;
-    color: red;
-    padding: 15px 20px;
+    background: #1f2937;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .admin-header-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
 }
 
-/* روابط الكمبيوتر */
-.desktop-nav {
+.admin-header .logo h2 {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.admin-header .desktop-nav {
     display: flex;
-    gap: 20px;
+    gap: 18px;
 }
 
-.desktop-nav a {
-    color: white;
-    text-decoration: none;
+.admin-header .desktop-nav a {
+    color: #e5e7eb;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
 }
 
-.desktop-nav a.active {
-    font-weight: bold;
+.admin-header .desktop-nav a:hover {
+    color: #ffffff;
 }
 
-/* زر الهاتف */
 .menu-toggle {
     display: none;
-    font-size: 22px;
+    font-size: 26px;
     background: none;
     border: none;
-    color: white;
+    color: #fff;
     cursor: pointer;
 }
 
-/* =========================
-   Sidebar (Mobile Only)
-========================= */
+/* =============================
+   Sidebar
+============================= */
 
 .admin-sidebar {
     position: fixed;
-    right: -250px;
     top: 0;
-    width: 250px;
+    right: -260px;
+    width: 260px;
     height: 100%;
-    background: #1e293b;
-    padding: 20px;
+    background: #111827;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    transition: 0.3s;
+    gap: 18px;
+    transition: 0.3s ease;
+    z-index: 1000;
 }
 
 .admin-sidebar a {
-    color: white;
-    text-decoration: none;
+    color: #d1d5db;
+    font-size: 0.95rem;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.admin-sidebar a:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
 }
 
 .admin-sidebar.active {
     right: 0;
 }
 
-/* =========================
-   Content
-========================= */
+/* =============================
+   Content Area
+============================= */
 
 .admin-content {
-    padding: 30px;
+    padding: 40px 25px;
+    max-width: 1100px;
+    margin: auto;
 }
 
-/* =========================
+.admin-section h1 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+.admin-section h2 {
+    margin: 40px 0 20px;
+    font-size: 1.3rem;
+    color: #374151;
+}
+
+/* =============================
+   Form Styling
+============================= */
+
+.admin-form {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    display: grid;
+    gap: 15px;
+}
+
+.admin-form input,
+.admin-form textarea {
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: 0.2s ease;
+    font-family: inherit;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.admin-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.admin-form button {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.admin-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(29, 78, 216, 0.25);
+}
+
+.admin-form button:active {
+    transform: scale(0.97);
+}
+
+/* =============================
+   Packages Cards
+============================= */
+
+.admin-packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.admin-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-4px);
+}
+
+.admin-card h3 {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #111827;
+}
+
+.admin-card p {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+/* =============================
+   Card Actions
+============================= */
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.card-actions button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.3s ease;
+    background: #2563eb;
+    color: #fff;
+}
+
+.card-actions button:hover {
+    opacity: 0.9;
+}
+
+.card-actions .danger {
+    background: #dc2626;
+}
+
+.card-actions .danger:hover {
+    background: #b91c1c;
+}
+
+/* =============================
    Responsive
-========================= */
+============================= */
 
 @media (max-width: 768px) {
 
-    .desktop-nav {
+    .admin-header .desktop-nav {
         display: none;
     }
 
@@ -88,4 +243,11 @@
         display: block;
     }
 
+    .admin-content {
+        padding: 25px 15px;
+    }
+
+    .admin-form {
+        padding: 20px;
+    }
 }
