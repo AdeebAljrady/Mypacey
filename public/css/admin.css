@@ -19,11 +19,6 @@ body {
     padding: 15px 25px;
 }
 
-.admin-header .logo h2 {
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
 .admin-header .desktop-nav {
     display: flex;
     gap: 18px;
@@ -31,12 +26,11 @@ body {
 
 .admin-header .desktop-nav a {
     color: #e5e7eb;
-    font-size: 0.95rem;
     transition: 0.3s ease;
 }
 
 .admin-header .desktop-nav a:hover {
-    color: #ffffff;
+    color: #fff;
 }
 
 .menu-toggle {
@@ -69,7 +63,6 @@ body {
 
 .admin-sidebar a {
     color: #d1d5db;
-    font-size: 0.95rem;
     padding: 10px;
     border-radius: 8px;
     transition: 0.3s ease;
@@ -84,8 +77,25 @@ body {
     right: 0;
 }
 
+/* Overlay */
+
+.admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 900;
+}
+
+.admin-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* =============================
-   Content Area
+   Content
 ============================= */
 
 .admin-content {
@@ -95,23 +105,19 @@ body {
 }
 
 .admin-section h1 {
-    font-size: 1.6rem;
     margin-bottom: 25px;
-    color: #111827;
 }
 
 .admin-section h2 {
     margin: 40px 0 20px;
-    font-size: 1.3rem;
-    color: #374151;
 }
 
 /* =============================
-   Form Styling
+   Form
 ============================= */
 
 .admin-form {
-    background: #ffffff;
+    background: #fff;
     padding: 25px;
     border-radius: 14px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.06);
@@ -121,10 +127,9 @@ body {
 
 .admin-form input,
 .admin-form textarea {
-    padding: 12px 14px;
+    padding: 12px;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
-    font-size: 0.95rem;
     outline: none;
     transition: 0.2s ease;
     font-family: inherit;
@@ -133,12 +138,7 @@ body {
 .admin-form input:focus,
 .admin-form textarea:focus {
     border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-.admin-form textarea {
-    min-height: 100px;
-    resize: vertical;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
 }
 
 .admin-form button {
@@ -147,23 +147,16 @@ body {
     padding: 12px;
     border: none;
     border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 500;
     cursor: pointer;
     transition: 0.3s ease;
 }
 
 .admin-form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(29, 78, 216, 0.25);
-}
-
-.admin-form button:active {
-    transform: scale(0.97);
 }
 
 /* =============================
-   Packages Cards
+   Cards
 ============================= */
 
 .admin-packages {
@@ -173,7 +166,7 @@ body {
 }
 
 .admin-card {
-    background: #ffffff;
+    background: #fff;
     padding: 20px;
     border-radius: 14px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -184,25 +177,10 @@ body {
     transform: translateY(-4px);
 }
 
-.admin-card h3 {
-    margin-bottom: 8px;
-    font-size: 1rem;
-    color: #111827;
-}
-
-.admin-card p {
-    font-size: 0.9rem;
-    color: #6b7280;
-    margin-bottom: 15px;
-}
-
-/* =============================
-   Card Actions
-============================= */
-
 .card-actions {
     display: flex;
     gap: 10px;
+    margin-top: 15px;
 }
 
 .card-actions button {
@@ -211,22 +189,12 @@ body {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
-    transition: 0.3s ease;
     background: #2563eb;
     color: #fff;
 }
 
-.card-actions button:hover {
-    opacity: 0.9;
-}
-
 .card-actions .danger {
     background: #dc2626;
-}
-
-.card-actions .danger:hover {
-    background: #b91c1c;
 }
 
 /* =============================
@@ -245,9 +213,5 @@ body {
 
     .admin-content {
         padding: 25px 15px;
-    }
-
-    .admin-form {
-        padding: 20px;
     }
 }
