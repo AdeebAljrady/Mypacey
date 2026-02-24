@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SMARTMENTOR Login</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* ===== Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== Background ===== */
+body {
+  background: linear-gradient(
+    to bottom,
+    #EAE2FF 0%,
+    #EFE7FF 30%,
+    #F4EEFF 60%,
+    #FFFFFF 100%
+  );
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  width: 100%;
+  height: 70px;
+  background: #f6f2ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.nav-left a {
+  margin-right: 25px;
+  text-decoration: none;
+  color: #6a5acd;
+  font-weight: 500;
+}
+
+.nav-left i {
+  margin-right: 6px;
+}
+
+.nav-right {
+  font-weight: bold;
+  color: #6a5acd;
+  letter-spacing: 1px;
+}
+
+/* ===== Page Wrapper ===== */
+.page-wrapper {
+  position: relative;
+  height: calc(100vh - 70px);
+}
+
+/* ===== Login Box ===== */
+.login-container {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 420px;
+  padding: 120px 35px 35px; /* مساحة للروبوت + الصوت */
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  text-align: center;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  overflow: hidden;          /* 👈 يخفي رجول الروبوت */
+  z-index: 2;
+}
+
+/* ===== Robot (نص قدّام / نص خلف) ===== */
+.robot-wrapper {
+  position: absolute;
+  top: 10;                    /* بداية البوكس */
+  left: 50%;
+ 
+
+  height: 180px;             /* يخفي الرجول */
+  overflow: hidden;
+  z-index: 10;                /* قدّام من فوق */
+}
+
+.robot-wrapper img {
+  width: 200px;
+}
+
+/* ===== Title ===== */
+.login-container h2 {
+  margin-bottom: 25px;
+  color: #4f46c8;
+  font-size: 24px;
+}
+
+/* ===== Inputs ===== */
+.login-container input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+}
+
+/* ===== Button ===== */
+.login-container button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #6a5acd, #7b6cff);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  opacity: 0.9;
+}
+
+/* ===== Links ===== */
+.login-container a {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #6a5acd;
+  text-decoration: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="nav-left">
+    <a href="#"><i class="fas fa-home"></i>Home</a>
+    <a href="#">About the Project</a>
+  </div>
+
+  <div class="nav-right">
+    SMARTMENTOR
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="page-wrapper">
+
+  <!-- Login Box -->
+  <div class="login-container">
+
+    <!-- Robot -->
+    <div class="robot-wrapper">
+      <img src="rr.png" alt="Robot">
+    </div>
+
+    <h2>Log In</h2>
+
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+
+    <button>Login</button>
+
+    <a href="#">Forgot your password?</a>
+    <a href="#">New student? Sign up here</a>
+  </div>
+
+</div>
+
+</body>
+</html>
