@@ -73,9 +73,8 @@ body {
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 420px;
-  padding: 120px 35px 35px; /* مساحة للروبوت + الصوت */
+  padding: 120px 35px 35px;
 
   background: rgba(255,255,255,0.75);
   backdrop-filter: blur(12px);
@@ -83,24 +82,22 @@ body {
   text-align: center;
 
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  overflow: hidden;          /* 👈 يخفي رجول الروبوت */
   z-index: 2;
 }
 
-/* ===== Robot (نص قدّام / نص خلف) ===== */
+/* ===== Robot ===== */
 .robot-wrapper {
   position: absolute;
-  top: 10;                    /* بداية البوكس */
+  top: -90px;
   left: 50%;
- 
-
-  height: 180px;             /* يخفي الرجول */
-  overflow: hidden;
-  z-index: 10;                /* قدّام من فوق */
+  transform: translateX(-50%);
+  width: 180px;
+  z-index: 5;
 }
 
 .robot-wrapper img {
-  width: 200px;
+  width: 100%;
+  height: auto;
 }
 
 /* ===== Title ===== */
@@ -119,10 +116,16 @@ body {
   border: 1px solid #ddd;
   font-size: 14px;
   outline: none;
+  transition: 0.3s;
 }
 
-/* ===== Button ===== */
-.login-container button {
+.login-container input:focus {
+  border-color: #6a5acd;
+  box-shadow: 0 0 6px rgba(106,90,205,0.2);
+}
+
+/* ===== Main Button ===== */
+.login-container .main-btn {
   width: 100%;
   padding: 14px;
   background: linear-gradient(90deg, #6a5acd, #7b6cff);
@@ -131,10 +134,46 @@ body {
   color: white;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.login-container button:hover {
+.login-container .main-btn:hover {
   opacity: 0.9;
+}
+
+/* ===== Social Login ===== */
+.social-login {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-login button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.social-login button img {
+  width: 18px;
+  height: 18px;
+}
+
+.social-login button:hover {
+  background: #f5f5ff;
+  border-color: #6a5acd;
 }
 
 /* ===== Links ===== */
@@ -144,6 +183,10 @@ body {
   font-size: 14px;
   color: #6a5acd;
   text-decoration: none;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
 }
 
 </style>
@@ -179,10 +222,26 @@ body {
     <input type="email" placeholder="Email">
     <input type="password" placeholder="Password">
 
-    <button>Login</button>
+    <button class="main-btn">Login</button>
+
+    <!-- Social Login -->
+    <div class="social-login">
+
+      <button>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png">
+        Sign in with Google
+      </button>
+
+      <button>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
+        Sign in with Microsoft
+      </button>
+
+    </div>
 
     <a href="#">Forgot your password?</a>
     <a href="#">New student? Sign up here</a>
+
   </div>
 
 </div>
