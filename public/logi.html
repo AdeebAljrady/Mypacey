@@ -74,7 +74,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 420px;
-  padding: 120px 35px 35px;
+  padding: 110px 35px 35px; /* تقليل المسافة العلوية */
 
   background: rgba(255,255,255,0.75);
   backdrop-filter: blur(12px);
@@ -83,6 +83,21 @@ body {
 
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
   z-index: 2;
+}
+
+/* ===== Robot ===== */
+.robot-wrapper {
+  position: absolute;
+  top: -75px;              /* يلامس أعلى الكرت */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;            /* حجم متوازن */
+  z-index: 5;
+}
+
+.robot-wrapper img {
+  width: 100%;
+  height: auto;
 }
 
 /* ===== Robot ===== */
@@ -145,30 +160,29 @@ body {
 .social-login {
   margin-top: 20px;
   display: flex;
-  flex-direction: column;
   gap: 12px;
 }
 
 .social-login button {
+  flex: 1; /* كل زر يأخذ نصف المساحة */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
 
-  width: 100%;
   padding: 12px;
   border-radius: 12px;
   border: 1px solid #ddd;
   background: #fff;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   transition: 0.3s;
 }
 
 .social-login button img {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .social-login button:hover {
