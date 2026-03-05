@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>منصة نُسُك | النظام الوطني لتنظيم خدمات الحج والعمرة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-base:     #060E09;
+  --bg-card:     #0D1F14;
+  --bg-surface:  #132B1A;
+  --bg-hover:    #1A3823;
+  --green-deep:  #0F3D22;
+  --green-main:  #1A6B3A;
+  --green-bright:#27A24F;
+  --green-glow:  #3DD68C;
+  --gold:        #C9A84C;
+  --gold-light:  #E8CC7A;
+  --gold-dim:    #7A6830;
+  --red:         #E05252;
+  --red-dim:     #3D1515;
+  --orange:      #E07D3A;
+  --orange-dim:  #3D2210;
+  --blue:        #3A8EE0;
+  --blue-dim:    #0F2340;
+  --text-primary:#F0F7F2;
+  --text-sec:    #8FB09A;
+  --text-muted:  #4A6B55;
+  --border:      #1E3828;
+  --border-bright:#2D5040;
+  --shadow:      0 8px 32px rgba(0,0,0,0.5);
+  --radius:      12px;
+  --radius-sm:   8px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'IBM Plex Sans Arabic',sans-serif;
+  background:var(--bg-base);
+  color:var(--text-primary);
+  direction:rtl;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg-base);}
+::-webkit-scrollbar-thumb{background:var(--green-main);border-radius:3px;}
+
+/* ─── LAYOUT ─── */
+.app{display:flex;min-height:100vh;}
+
+/* ─── SIDEBAR ─── */
+.sidebar{
+  width:260px;flex-shrink:0;
+  background:var(--bg-card);
+  border-left:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;right:0;bottom:0;
+  z-index:50;overflow-y:auto;
+}
+.sidebar-logo{
+  padding:24px 20px 20px;
+  border-bottom:1px solid var(--border);
+}
+.logo-mark{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;margin-bottom:4px;
+}
+.logo-icon{
+  width:42px;height:42px;
+  background:linear-gradient(135deg,var(--green-main),var(--green-bright));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  box-shadow:0 4px 16px rgba(39,162,79,0.3);
+}
+.logo-text{font-family:'Tajawal',sans-serif;}
+.logo-text .name{font-size:18px;font-weight:800;color:var(--text-primary);}
+.logo-text .sub{font-size:10px;color:var(--text-sec);letter-spacing:.3px;}
+.sidebar-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(201,168,76,.12);
+  border:1px solid var(--gold-dim);
+  color:var(--gold);
+  font-size:10px;font-weight:700;
+  padding:3px 10px;border-radius:20px;
+  margin-top:8px;
+}
+.sidebar-badge .dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+
+.sidebar-section{
+  padding:8px 12px 4px;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  color:var(--text-muted);text-transform:uppercase;margin-top:12px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 16px;margin:2px 8px;
+  border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .2s;
+  font-size:14px;color:var(--text-sec);
+  border:1px solid transparent;
+  position:relative;
+}
+.nav-item:hover{background:var(--bg-hover);color:var(--text-primary);}
+.nav-item.active{
+  background:var(--green-deep);
+  color:var(--green-glow);
+  border-color:rgba(61,214,140,.15);
+}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:60%;background:var(--green-glow);border-radius:0 2px 2px 0;
+}
+.nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-badge{
+  margin-right:auto;
+  background:var(--red);color:#fff;
+  font-size:10px;font-weight:700;
+  padding:1px 7px;border-radius:10px;
+}
+.nav-badge.warn{background:var(--orange);}
+.nav-badge.info{background:var(--green-main);}
+
+.sidebar-footer{
+  margin-top:auto;padding:16px;
+  border-top:1px solid var(--border);
+}
+.user-card{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;
+  background:var(--bg-surface);border-radius:var(--radius-sm);
+}
+.user-avatar{
+  width:34px;height:34px;
+  background:linear-gradient(135deg,var(--gold-dim),var(--gold));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+}
+.user-info .uname{font-size:13px;font-weight:700;}
+.user-info .urole{font-size:11px;color:var(--gold);margin-top:1px;}
+
+/* ─── MAIN ─── */
+.main{
+  margin-right:260px;
+  flex:1;min-width:0;
+  display:flex;flex-direction:column;
+}
+
+/* ─── TOP BAR ─── */
+.topbar{
+  height:60px;
+  background:var(--bg-card);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 28px;gap:16px;
+  position:sticky;top:0;z-index:40;
+}
+.topbar-title{font-family:'Tajawal',sans-serif;font-size:17px;font-weight:700;}
+.topbar-breadcrumb{font-size:12px;color:var(--text-muted);}
+.topbar-right{margin-right:auto;display:flex;align-items:center;gap:12px;}
+.btn-icon{
+  width:34px;height:34px;
+  background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:14px;transition:all .2s;color:var(--text-sec);
+  position:relative;
+}
+.btn-icon:hover{background:var(--bg-hover);color:var(--text-primary);}
+.notif-dot{
+  position:absolute;top:4px;right:4px;
+  width:7px;height:7px;background:var(--red);
+  border-radius:50%;border:1px solid var(--bg-card);
+}
+.season-chip{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(39,162,79,.1);border:1px solid rgba(39,162,79,.25);
+  color:var(--green-glow);
+  font-size:12px;font-weight:600;
+  padding:5px 14px;border-radius:20px;
+}
+.season-chip .live-dot{width:6px;height:6px;background:var(--green-glow);border-radius:50%;animation:pulse 1.5s infinite;}
+
+/* ─── CONTENT ─── */
+.content{padding:28px;flex:1;}
+.page{display:none;}
+.page.active{display:block;}
+
+/* ─── CARDS ─── */
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+}
+.card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.card-title{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;}
+.card-subtitle{font-size:12px;color:var(--text-sec);margin-top:2px;}
+
+/* ─── KPI STATS ─── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kpi-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  position:relative;overflow:hidden;
+  transition:transform .2s,border-color .2s;
+}
+.kpi-card:hover{transform:translateY(-2px);border-color:var(--border-bright);}
+.kpi-card::before{
+  content:'';position:absolute;top:0;right:0;
+  width:80px;height:80px;
+  border-radius:0 var(--radius) 0 80px;
+  opacity:.06;
+}
+.kpi-card.green::before{background:var(--green-bright);}
+.kpi-card.gold::before{background:var(--gold);}
+.kpi-card.red::before{background:var(--red);}
+.kpi-card.blue::before{background:var(--blue);}
+.kpi-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:14px;
+}
+.kpi-card.green .kpi-icon{background:rgba(39,162,79,.15);}
+.kpi-card.gold .kpi-icon{background:rgba(201,168,76,.15);}
+.kpi-card.red .kpi-icon{background:rgba(224,82,82,.15);}
+.kpi-card.blue .kpi-icon{background:rgba(58,142,224,.15);}
+.kpi-value{font-family:'Tajawal',sans-serif;font-size:32px;font-weight:900;line-height:1;}
+.kpi-card.green .kpi-value{color:var(--green-glow);}
+.kpi-card.gold .kpi-value{color:var(--gold-light);}
+.kpi-card.red .kpi-value{color:var(--red);}
+.kpi-card.blue .kpi-value{color:var(--blue);}
+.kpi-label{font-size:13px;color:var(--text-sec);margin-top:6px;}
+.kpi-change{
+  font-size:11px;font-weight:700;margin-top:8px;
+  display:inline-flex;align-items:center;gap:3px;
+  padding:2px 8px;border-radius:10px;
+}
+.kpi-change.up{background:rgba(39,162,79,.15);color:var(--green-glow);}
+.kpi-change.down{background:rgba(224,82,82,.15);color:var(--red);}
+.kpi-change.neutral{background:rgba(201,168,76,.15);color:var(--gold);}
+
+/* ─── GRID LAYOUTS ─── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.grid-3-1{display:grid;grid-template-columns:2fr 1fr;gap:20px;}
+.grid-1-3{display:grid;grid-template-columns:1fr 2fr;gap:20px;}
+.mb-20{margin-bottom:20px;}
+.mb-24{margin-bottom:24px;}
+
+/* ─── TABLE ─── */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{
+  padding:10px 14px;text-align:right;
+  font-size:11px;font-weight:700;letter-spacing:.5px;
+  color:var(--text-muted);text-transform:uppercase;
+  background:var(--bg-surface);border-bottom:1px solid var(--border);
+}
+tbody td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-sec);
+}
+tbody tr:hover td{background:var(--bg-hover);color:var(--text-primary);}
+tbody tr:last-child td{border-bottom:none;}
+
+/* ─── BADGES ─── */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:20px;
+}
+.badge.success{background:rgba(39,162,79,.15);color:var(--green-glow);border:1px solid rgba(39,162,79,.2);}
+.badge.warning{background:rgba(224,125,58,.15);color:var(--orange);border:1px solid rgba(224,125,58,.2);}
+.badge.danger{background:rgba(224,82,82,.15);color:var(--red);border:1px solid rgba(224,82,82,.2);}
+.badge.info{background:rgba(58,142,224,.15);color:var(--blue);border:1px solid rgba(58,142,224,.2);}
+.badge.gold{background:rgba(201,168,76,.12);color:var(--gold-light);border:1px solid rgba(201,168,76,.2);}
+.badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+/* ─── BUTTONS ─── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 18px;border-radius:8px;
+  font-family:'IBM Plex Sans Arabic',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;
+  border:none;transition:all .2s;
+}
+.btn-primary{background:var(--green-main);color:#fff;}
+.btn-primary:hover{background:var(--green-bright);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--green-glow);border:1px solid rgba(39,162,79,.4);}
+.btn-outline:hover{background:rgba(39,162,79,.1);}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,.3);}
+.btn-danger:hover{background:rgba(224,82,82,.2);}
+.btn-gold{background:rgba(201,168,76,.15);color:var(--gold-light);border:1px solid rgba(201,168,76,.3);}
+.btn-gold:hover{background:rgba(201,168,76,.25);}
+.btn-sm{padding:6px 12px;font-size:12px;}
+
+/* ─── FORM ─── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+label{font-size:12px;font-weight:600;color:var(--text-sec);}
+input,select,textarea{
+  background:var(--bg-surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px 14px;
+  font-family:'IBM Plex Sans Arabic',sans-serif;
+  font-size:13px;color:var(--text-primary);
+  transition:border-color .2s;direction:rtl;
+  width:100%;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--green-main);
+  box-shadow:0 0 0 3px rgba(39,162,79,.1);
+}
+textarea{resize:vertical;min-height:80px;}
+select option{background:var(--bg-surface);}
+
+/* ─── PROGRESS BAR ─── */
+.progress-bar-wrap{background:var(--bg-surface);border-radius:4px;height:8px;overflow:hidden;}
+.progress-bar{height:100%;border-radius:4px;transition:width .8s ease;}
+.progress-bar.green{background:linear-gradient(90deg,var(--green-main),var(--green-glow));}
+.progress-bar.gold{background:linear-gradient(90deg,var(--gold-dim),var(--gold));}
+.progress-bar.red{background:var(--red);}
+.progress-bar.blue{background:var(--blue);}
+
+/* ─── VIOLATION STAGES ─── */
+.stage-flow{display:flex;align-items:center;gap:0;margin:20px 0;}
+.stage{
+  flex:1;text-align:center;position:relative;
+  padding:16px 8px;
+}
+.stage::after{
+  content:'←';position:absolute;left:-10px;top:50%;
+  transform:translateY(-50%);
+  color:var(--text-muted);font-size:16px;z-index:1;
+}
+.stage:last-child::after{display:none;}
+.stage-circle{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 8px;font-size:20px;
+  border:2px solid;
+}
+.stage.s1 .stage-circle{border-color:var(--gold);background:rgba(201,168,76,.1);color:var(--gold);}
+.stage.s2 .stage-circle{border-color:var(--orange);background:rgba(224,125,58,.1);color:var(--orange);}
+.stage.s3 .stage-circle{border-color:var(--red);background:rgba(224,82,82,.1);color:var(--red);}
+.stage.s4 .stage-circle{border-color:var(--blue);background:rgba(58,142,224,.1);color:var(--blue);}
+.stage-label{font-size:12px;font-weight:700;color:var(--text-primary);}
+.stage-desc{font-size:11px;color:var(--text-muted);margin-top:3px;}
+
+/* ─── ACTIVITY FEED ─── */
+.feed-item{
+  display:flex;gap:14px;padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.feed-item:last-child{border-bottom:none;}
+.feed-icon{
+  width:36px;height:36px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+}
+.feed-text{flex:1;}
+.feed-text strong{font-size:13px;font-weight:600;display:block;}
+.feed-text span{font-size:11px;color:var(--text-muted);}
+.feed-time{font-size:11px;color:var(--text-muted);white-space:nowrap;margin-top:2px;}
+
+/* ─── MONITORING CARD ─── */
+.risk-level{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;
+  background:var(--bg-surface);border-radius:8px;
+  margin-bottom:10px;border:1px solid var(--border);
+}
+.risk-meter{
+  flex:1;height:6px;background:var(--bg-base);border-radius:3px;overflow:hidden;
+}
+.risk-fill{height:100%;border-radius:3px;}
+
+/* ─── COMPLAINTS TIMELINE ─── */
+.timeline{position:relative;padding-right:24px;}
+.timeline::before{
+  content:'';position:absolute;right:8px;top:0;bottom:0;
+  width:2px;background:var(--border);
+}
+.timeline-item{position:relative;padding:0 20px 20px 0;}
+.timeline-dot{
+  position:absolute;right:-8px;top:4px;
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid var(--bg-card);
+}
+.timeline-dot.green{background:var(--green-bright);}
+.timeline-dot.gold{background:var(--gold);}
+.timeline-dot.red{background:var(--red);}
+.timeline-dot.blue{background:var(--blue);}
+.timeline-content{
+  background:var(--bg-surface);border-radius:8px;
+  padding:12px 16px;border:1px solid var(--border);
+}
+.timeline-content .t-title{font-size:13px;font-weight:600;}
+.timeline-content .t-date{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.timeline-content .t-body{font-size:12px;color:var(--text-sec);margin-top:6px;line-height:1.6;}
+
+/* ─── ROADMAP ─── */
+.roadmap-phases{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.phase-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px 20px;
+  position:relative;overflow:hidden;transition:transform .2s;
+}
+.phase-card:hover{transform:translateY(-3px);}
+.phase-num{
+  font-family:'Tajawal',sans-serif;
+  font-size:64px;font-weight:900;
+  position:absolute;top:-10px;left:-5px;
+  opacity:.05;color:var(--green-glow);line-height:1;
+}
+.phase-icon{font-size:32px;margin-bottom:14px;}
+.phase-title{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;}
+.phase-status{margin-bottom:12px;}
+.phase-items{list-style:none;}
+.phase-items li{
+  font-size:12px;color:var(--text-sec);
+  padding:5px 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:6px;
+}
+.phase-items li:last-child{border-bottom:none;}
+.phase-items li::before{content:'◆';font-size:8px;color:var(--green-main);}
+
+/* ─── MODAL ─── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.7);z-index:200;
+  align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:16px;padding:28px;width:600px;max-width:95vw;
+  box-shadow:var(--shadow);max-height:90vh;overflow-y:auto;
+}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.modal-header h3{font-family:'Tajawal',sans-serif;font-size:18px;font-weight:700;}
+.modal-close{
+  width:30px;height:30px;background:var(--bg-surface);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text-sec);font-size:16px;border:none;
+}
+.modal-close:hover{color:var(--text-primary);}
+
+/* ─── NOTIFICATION TOAST ─── */
+.toast{
+  position:fixed;bottom:24px;left:24px;
+  background:var(--bg-card);border:1px solid var(--green-main);
+  border-radius:10px;padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:var(--shadow);z-index:300;
+  transform:translateX(-150%);transition:transform .4s;
+  max-width:320px;
+}
+.toast.show{transform:translateX(0);}
+.toast-icon{font-size:20px;}
+.toast-text strong{font-size:13px;font-weight:700;display:block;}
+.toast-text span{font-size:11px;color:var(--text-sec);}
+
+/* ─── CHART CONTAINER ─── */
+.chart-wrap{position:relative;width:100%;}
+
+/* ─── PRICE COMPARISON ─── */
+.price-compare{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;
+  background:var(--bg-surface);border-radius:8px;margin-bottom:8px;
+  border:1px solid var(--border);transition:border-color .2s;
+}
+.price-compare:hover{border-color:var(--border-bright);}
+.pc-rank{
+  width:28px;height:28px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+}
+.pc-name{flex:1;font-size:13px;font-weight:600;}
+.pc-pkg{font-size:11px;color:var(--text-muted);}
+.pc-price{font-family:'Tajawal',sans-serif;font-size:16px;font-weight:800;color:var(--green-glow);}
+.pc-max{font-size:11px;color:var(--text-muted);text-decoration:line-through;}
+.pc-diff{font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;}
+.pc-diff.over{background:var(--red-dim);color:var(--red);}
+.pc-diff.ok{background:rgba(39,162,79,.12);color:var(--green-glow);}
+
+/* ─── COMPLIANCE RING ─── */
+.ring-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:20px;
+}
+.ring-svg{transform:rotate(-90deg);}
+.ring-label{font-family:'Tajawal',sans-serif;font-size:28px;font-weight:900;text-align:center;}
+.ring-sub{font-size:12px;color:var(--text-sec);text-align:center;}
+
+/* ─── ANIMATIONS ─── */
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.page.active{animation:fadeIn .3s ease;}
+
+@keyframes countUp{from{opacity:0;}to{opacity:1;}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <a class="logo-mark">
+      <div class="logo-icon">🕌</div>
+      <div class="logo-text">
+        <div class="name">نُسُك</div>
+        <div class="sub">NUSUK National Platform</div>
+      </div>
+    </a>
+    <div class="sidebar-badge"><span class="dot"></span> موسم العمرة ١٤٤٦</div>
+  </div>
+
+  <div class="sidebar-section">الرئيسية</div>
+  <div class="nav-item active" onclick="showPage('dashboard',this)">
+    <span class="nav-icon">📊</span> لوحة التحكم الرئيسية
+  </div>
+
+  <div class="sidebar-section">إدارة المكاتب</div>
+  <div class="nav-item" onclick="showPage('offices',this)">
+    <span class="nav-icon">🏢</span> سجل المكاتب المعتمدة
+    <span class="nav-badge info">٣٤٧</span>
+  </div>
+  <div class="nav-item" onclick="showPage('register',this)">
+    <span class="nav-icon">📋</span> تسجيل مكتب جديد
+  </div>
+
+  <div class="sidebar-section">التسعير والباقات</div>
+  <div class="nav-item" onclick="showPage('pricing',this)">
+    <span class="nav-icon">💰</span> هيكل التسعير الوطني
+  </div>
+  <div class="nav-item" onclick="showPage('packages',this)">
+    <span class="nav-icon">📦</span> توحيد الباقات
+  </div>
+
+  <div class="sidebar-section">المراقبة والرقابة</div>
+  <div class="nav-item" onclick="showPage('monitoring',this)">
+    <span class="nav-icon">🔍</span> الرقابة الاستباقية
+    <span class="nav-badge warn">١٢</span>
+  </div>
+  <div class="nav-item" onclick="showPage('violations',this)">
+    <span class="nav-icon">⚠️</span> المخالفات والعقوبات
+    <span class="nav-badge">٥</span>
+  </div>
+
+  <div class="sidebar-section">خدمات المواطن</div>
+  <div class="nav-item" onclick="showPage('complaints',this)">
+    <span class="nav-icon">📨</span> شكاوى المواطنين
+    <span class="nav-badge">٢٨</span>
+  </div>
+
+  <div class="sidebar-section">التقارير</div>
+  <div class="nav-item" onclick="showPage('kpis',this)">
+    <span class="nav-icon">📈</span> مؤشرات الأداء KPIs
+  </div>
+  <div class="nav-item" onclick="showPage('roadmap',this)">
+    <span class="nav-icon">🗺️</span> خارطة التوسع
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar">👤</div>
+      <div class="user-info">
+        <div class="uname">أ. سالم المطيري</div>
+        <div class="urole">مدير النظام الوطني</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div>
+      <div class="topbar-title" id="pageTitle">لوحة التحكم الرئيسية</div>
+      <div class="topbar-breadcrumb">نُسُك ← <span id="pageCrumb">الرئيسية</span></div>
+    </div>
+    <div class="topbar-right">
+      <div class="season-chip"><span class="live-dot"></span> النظام نشط</div>
+      <div class="btn-icon" onclick="showToast('تم تحديث البيانات','آخر تحديث: الآن')">🔄</div>
+      <div class="btn-icon" onclick="showPage('violations',document.querySelector(\'[onclick*=violations]\'))">
+        ⚠️<span class="notif-dot"></span>
+      </div>
+      <div class="btn-icon">⚙️</div>
+    </div>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div class="content">
+
+    <!-- ════ PAGE: DASHBOARD ════ -->
+    <div id="page-dashboard" class="page active">
+      <div class="kpi-grid">
+        <div class="kpi-card green">
+          <div class="kpi-icon">🏢</div>
+          <div class="kpi-value" data-count="347">٣٤٧</div>
+          <div class="kpi-label">مكتب معتمد نشط</div>
+          <span class="kpi-change up">▲ +٢٣ هذا الموسم</span>
+        </div>
+        <div class="kpi-card gold">
+          <div class="kpi-icon">✅</div>
+          <div class="kpi-value">٨٧٪</div>
+          <div class="kpi-label">نسبة الالتزام بالأسعار</div>
+          <span class="kpi-change up">▲ +١٢٪ عن العام الماضي</span>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-icon">⚠️</div>
+          <div class="kpi-value">٤٣</div>
+          <div class="kpi-label">مخالفة مسجلة هذا الموسم</div>
+          <span class="kpi-change down">▼ -٣١٪ تحسن ملحوظ</span>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-icon">📨</div>
+          <div class="kpi-value">١٢٨</div>
+          <div class="kpi-label">شكوى مواطن معالجة</div>
+          <span class="kpi-change neutral">⧖ متوسط ١.٨ يوم</span>
+        </div>
+      </div>
+
+      <div class="grid-3-1 mb-24">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📊 مؤشر الالتزام بالأسعار – الـ٣٠ يومًا الأخيرة</div>
+              <div class="card-subtitle">نسبة المكاتب الملتزمة بالحد الأعلى للتسعير الوطني</div>
+            </div>
+            <div class="badge success"><span class="dot"></span> مرتفع</div>
+          </div>
+          <div class="chart-wrap" style="height:220px;">
+            <canvas id="complianceChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🔔 آخر النشاطات</div>
+          </div>
+          <div id="activityFeed">
+            <div class="feed-item">
+              <div class="feed-icon" style="background:rgba(224,82,82,.1);">⚠️</div>
+              <div class="feed-text">
+                <strong>مخالفة سعرية – مكتب النور للسياحة</strong>
+                <span>باقة مميزة بسعر ٣,٨٠٠ ر (الحد ٣,٢٠٠ ر)</span>
+              </div>
+              <div class="feed-time">منذ ١٢ د</div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-icon" style="background:rgba(39,162,79,.1);">✅</div>
+              <div class="feed-text">
+                <strong>اعتماد مكتب جديد – الفجر للحج</strong>
+                <span>رقم الترخيص: HO-2025-0391</span>
+              </div>
+              <div class="feed-time">منذ ٣٥ د</div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-icon" style="background:rgba(201,168,76,.1);">📨</div>
+              <div class="feed-text">
+                <strong>شكوى جديدة – هوية ٢١٠٤XXXX</strong>
+                <span>تجاوز السعر في باقة اقتصادية</span>
+              </div>
+              <div class="feed-time">منذ ١ س</div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-icon" style="background:rgba(58,142,224,.1);">📊</div>
+              <div class="feed-text">
+                <strong>تحديث هيكل التسعير للموسم ١٤٤٦</strong>
+                <span>أصدرته الوزارة – يسري فورًا</span>
+              </div>
+              <div class="feed-time">منذ ٣ س</div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-icon" style="background:rgba(224,125,58,.1);">⏸️</div>
+              <div class="feed-text">
+                <strong>إيقاف مؤقت – مكتب الزهراء</strong>
+                <span>إنذار ثالث – تجاوز ٤ مخالفات</span>
+              </div>
+              <div class="feed-time">منذ ٥ س</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2 mb-24">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📦 توزيع الباقات المباعة</div>
+          </div>
+          <div class="chart-wrap" style="height:200px;">
+            <canvas id="packagesChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🗺️ أعلى ٥ مناطق تسجيل شكاوى</div>
+          </div>
+          <div style="padding-top:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;">
+              <span>الرياض</span>
+              <div style="display:flex;align-items:center;gap:10px;flex:1;margin:0 12px;">
+                <div class="progress-bar-wrap" style="flex:1;"><div class="progress-bar red" style="width:72%"></div></div>
+              </div>
+              <span style="color:var(--red);font-weight:700;">٧٢</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;">
+              <span>جدة</span>
+              <div style="display:flex;align-items:center;gap:10px;flex:1;margin:0 12px;">
+                <div class="progress-bar-wrap" style="flex:1;"><div class="progress-bar gold" style="width:55%"></div></div>
+              </div>
+              <span style="color:var(--gold);font-weight:700;">٥٥</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;">
+              <span>مكة المكرمة</span>
+              <div style="display:flex;align-items:center;gap:10px;flex:1;margin:0 12px;">
+                <div class="progress-bar-wrap" style="flex:1;"><div class="progress-bar blue" style="width:38%"></div></div>
+              </div>
+              <span style="color:var(--blue);font-weight:700;">٣٨</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;">
+              <span>الدمام</span>
+              <div style="display:flex;align-items:center;gap:10px;flex:1;margin:0 12px;">
+                <div class="progress-bar-wrap" style="flex:1;"><div class="progress-bar green" style="width:24%"></div></div>
+              </div>
+              <span style="color:var(--green-glow);font-weight:700;">٢٤</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+              <span>المدينة المنورة</span>
+              <div style="display:flex;align-items:center;gap:10px;flex:1;margin:0 12px;">
+                <div class="progress-bar-wrap" style="flex:1;"><div class="progress-bar green" style="width:18%"></div></div>
+              </div>
+              <span style="color:var(--green-glow);font-weight:700;">١٨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🏅 تصنيف المكاتب حسب الالتزام (الأعلى أداءً)</div>
+          <button class="btn btn-outline btn-sm" onclick="showPage('offices',document.querySelector('[onclick*=offices]'))">عرض الكل ←</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>اسم المكتب</th><th>المنطقة</th><th>نسبة الالتزام</th><th>عدد الباقات</th><th>الشكاوى</th><th>الحالة</th></tr></thead>
+            <tbody>
+              <tr><td>١</td><td><strong>مكتب الأمانة للحج والعمرة</strong></td><td>مكة المكرمة</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress-bar-wrap" style="width:80px;"><div class="progress-bar green" style="width:98%"></div></div><span style="color:var(--green-glow);font-size:12px;">٩٨٪</span></div></td><td>١٢ باقة</td><td><span style="color:var(--green-glow);">٠</span></td><td><span class="badge success"><span class="dot"></span>ممتاز</span></td></tr>
+              <tr><td>٢</td><td><strong>الدليل الشامل للحج</strong></td><td>الرياض</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress-bar-wrap" style="width:80px;"><div class="progress-bar green" style="width:95%"></div></div><span style="color:var(--green-glow);font-size:12px;">٩٥٪</span></div></td><td>٨ باقات</td><td><span style="color:var(--gold);">١</span></td><td><span class="badge success"><span class="dot"></span>ممتاز</span></td></tr>
+              <tr><td>٣</td><td><strong>نور الإسلام للعمرة</strong></td><td>جدة</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress-bar-wrap" style="width:80px;"><div class="progress-bar gold" style="width:88%"></div></div><span style="color:var(--gold);font-size:12px;">٨٨٪</span></div></td><td>١٥ باقة</td><td>٢</td><td><span class="badge gold">جيد</span></td></tr>
+              <tr><td>٤</td><td><strong>مكتب البيان</strong></td><td>الدمام</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress-bar-wrap" style="width:80px;"><div class="progress-bar gold" style="width:80%"></div></div><span style="color:var(--gold);font-size:12px;">٨٠٪</span></div></td><td>٦ باقات</td><td>٤</td><td><span class="badge gold">جيد</span></td></tr>
+              <tr><td>٥</td><td><strong>مكتب النور للسياحة</strong></td><td>الرياض</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="progress-bar-wrap" style="width:80px;"><div class="progress-bar red" style="width:52%"></div></div><span style="color:var(--red);font-size:12px;">٥٢٪</span></div></td><td>١٠ باقات</td><td><span style="color:var(--red);">١٢</span></td><td><span class="badge warning"><span class="dot"></span>إنذار</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: OFFICES ════ -->
+    <div id="page-offices" class="page">
+      <div class="kpi-grid mb-24">
+        <div class="kpi-card green"><div class="kpi-icon">🏢</div><div class="kpi-value">٣٤٧</div><div class="kpi-label">مكتب معتمد</div></div>
+        <div class="kpi-card gold"><div class="kpi-icon">⏳</div><div class="kpi-value">١٨</div><div class="kpi-label">طلب قيد المراجعة</div></div>
+        <div class="kpi-card red"><div class="kpi-icon">⏸️</div><div class="kpi-value">٥</div><div class="kpi-label">موقوف مؤقتاً</div></div>
+        <div class="kpi-card blue"><div class="kpi-icon">🆕</div><div class="kpi-value">٢٣</div><div class="kpi-label">مكتب جديد هذا الموسم</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🏢 سجل المكاتب المعتمدة</div>
+          <div style="display:flex;gap:8px;">
+            <input style="width:200px;" placeholder="🔍 بحث باسم أو رقم الترخيص..." />
+            <select style="width:140px;"><option>جميع المناطق</option><option>مكة المكرمة</option><option>الرياض</option><option>جدة</option></select>
+            <button class="btn btn-primary btn-sm" onclick="showPage('register',document.querySelector('[onclick*=register]'))">+ تسجيل مكتب</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>رقم الترخيص</th><th>اسم المكتب</th><th>المنطقة</th><th>السجل الضريبي</th><th>رقم الحساب البنكي</th><th>تاريخ الاعتماد</th><th>الالتزام</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+            <tbody>
+              <tr><td style="font-family:monospace;color:var(--green-glow);">HO-2025-0001</td><td><strong>مكتب الأمانة للحج والعمرة</strong></td><td>مكة المكرمة</td><td>٣١٠١٢٣٤٥٦٠</td><td>SA03 8000 0000 6080 1016 7519</td><td>١٤٤٦/٠١/١٥</td><td><span class="badge success">٩٨٪</span></td><td><span class="badge success"><span class="dot"></span>نشط</span></td><td><button class="btn btn-outline btn-sm">عرض</button></td></tr>
+              <tr><td style="font-family:monospace;color:var(--green-glow);">HO-2025-0002</td><td><strong>الدليل الشامل للحج</strong></td><td>الرياض</td><td>١٠١٩٨٧٦٥٤٣</td><td>SA44 2000 0000 5478 1234 5678</td><td>١٤٤٦/٠١/٢٢</td><td><span class="badge success">٩٥٪</span></td><td><span class="badge success"><span class="dot"></span>نشط</span></td><td><button class="btn btn-outline btn-sm">عرض</button></td></tr>
+              <tr><td style="font-family:monospace;color:var(--green-glow);">HO-2025-0089</td><td><strong>نور الإسلام للعمرة</strong></td><td>جدة</td><td>٤٥٠٣١٢٣٤٥٦</td><td>SA72 1000 0000 1234 5678 9012</td><td>١٤٤٦/٠٢/٠٣</td><td><span class="badge gold">٨٨٪</span></td><td><span class="badge success"><span class="dot"></span>نشط</span></td><td><button class="btn btn-outline btn-sm">عرض</button></td></tr>
+              <tr><td style="font-family:monospace;color:var(--red);">HO-2024-0215</td><td><strong>مكتب الزهراء للسياحة</strong></td><td>الرياض</td><td>١٠٥٦٧٨٩٠١٢</td><td>SA85 4000 0000 9876 5432 1098</td><td>١٤٤٥/٠٣/١٠</td><td><span class="badge danger">٥٢٪</span></td><td><span class="badge warning"><span class="dot"></span>موقوف</span></td><td><button class="btn btn-danger btn-sm">إجراء</button></td></tr>
+              <tr><td style="font-family:monospace;color:var(--blue);">HO-2025-0391</td><td><strong>الفجر للحج والعمرة</strong></td><td>المدينة المنورة</td><td>٦٠٠١٢٣٤٥٦٧</td><td>SA18 3000 0000 3456 7890 1234</td><td>١٤٤٦/٠٣/٠١</td><td><span class="badge info">جديد</span></td><td><span class="badge info"><span class="dot"></span>مراجعة</span></td><td><button class="btn btn-gold btn-sm">مراجعة</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: REGISTER ════ -->
+    <div id="page-register" class="page">
+      <div class="grid-3-1">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📋 تسجيل مكتب جديد – اعتماد رسمي</div>
+              <div class="card-subtitle">يصبح المكتب كياناً موثقاً في النظام الوطني بعد إتمام التسجيل</div>
+            </div>
+          </div>
+          <div class="form-grid" style="margin-bottom:20px;">
+            <div class="form-group"><label>اسم المكتب التجاري *</label><input placeholder="مكتب ... للحج والعمرة"/></div>
+            <div class="form-group"><label>رقم الترخيص الرسمي *</label><input placeholder="HO-YYYY-XXXX"/></div>
+            <div class="form-group"><label>السجل التجاري *</label><input placeholder="١٠١٢٣٤٥٦٧٨"/></div>
+            <div class="form-group"><label>السجل الضريبي</label><input placeholder="٣٠٠١٢٣٤٥٦٧٠٠٠٠٣"/></div>
+            <div class="form-group"><label>رقم الحساب البنكي IBAN *</label><input placeholder="SA00 0000 0000 0000 0000 0000"/></div>
+            <div class="form-group"><label>اسم البنك *</label><select><option>اختر البنك</option><option>البنك الأهلي</option><option>بنك الراجحي</option><option>مصرف الإنماء</option><option>بنك الرياض</option></select></div>
+            <div class="form-group"><label>المنطقة *</label><select><option>اختر المنطقة</option><option>مكة المكرمة</option><option>الرياض</option><option>جدة</option><option>المدينة المنورة</option><option>الدمام</option></select></div>
+            <div class="form-group"><label>المدينة *</label><input placeholder="أدخل المدينة"/></div>
+            <div class="form-group"><label>اسم المسؤول القانوني *</label><input placeholder="الاسم الكامل"/></div>
+            <div class="form-group"><label>رقم الهوية / الإقامة *</label><input placeholder="١٠٠٠٠٠٠٠٠٠"/></div>
+            <div class="form-group"><label>رقم الجوال *</label><input placeholder="٠٥XXXXXXXX"/></div>
+            <div class="form-group"><label>البريد الإلكتروني الرسمي *</label><input type="email" placeholder="office@domain.com"/></div>
+            <div class="form-group full"><label>العنوان الكامل *</label><input placeholder="المدينة، الحي، الشارع، رقم المبنى"/></div>
+          </div>
+
+          <div style="background:var(--bg-surface);border-radius:8px;padding:16px;margin-bottom:16px;border:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--gold);">📎 الوثائق المطلوبة</div>
+            <div class="form-grid">
+              <div class="form-group"><label>نسخة الترخيص الرسمي (PDF)</label><input type="file" accept=".pdf"/></div>
+              <div class="form-group"><label>السجل التجاري (PDF)</label><input type="file" accept=".pdf"/></div>
+              <div class="form-group"><label>خطاب البنك</label><input type="file" accept=".pdf"/></div>
+              <div class="form-group"><label>هوية المسؤول</label><input type="file" accept=".pdf,.jpg,.png"/></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button class="btn btn-primary" onclick="showToast('✅ تم إرسال الطلب','سيتم مراجعته خلال ٢-٣ أيام عمل')">إرسال للاعتماد ←</button>
+            <button class="btn btn-outline">حفظ مسودة</button>
+          </div>
+        </div>
+        <div>
+          <div class="card mb-20">
+            <div class="card-header"><div class="card-title">🔐 مستويات الاعتماد</div></div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="padding:12px;background:rgba(39,162,79,.08);border-radius:8px;border-right:3px solid var(--green-bright);">
+                <div style="font-size:13px;font-weight:700;color:var(--green-glow);">✔ مكتب معتمد</div>
+                <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">ختم الاعتماد + ظهور رسمي في المنصة</div>
+              </div>
+              <div style="padding:12px;background:rgba(201,168,76,.08);border-radius:8px;border-right:3px solid var(--gold);">
+                <div style="font-size:13px;font-weight:700;color:var(--gold);">⭐ مكتب مميز</div>
+                <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">بعد سنة التزام كامل + ترشيح الوزارة</div>
+              </div>
+              <div style="padding:12px;background:rgba(58,142,224,.08);border-radius:8px;border-right:3px solid var(--blue);">
+                <div style="font-size:13px;font-weight:700;color:var(--blue);">🏅 شريك وطني</div>
+                <div style="font-size:11px;color:var(--text-sec);margin-top:4px;">عقد مباشر مع الوزارة للمجموعات الكبرى</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">⚖️ التزامات المكتب</div></div>
+            <div style="font-size:12px;color:var(--text-sec);line-height:2;">
+              ✔ الالتزام بهيكل التسعير الوطني<br/>
+              ✔ تقديم الباقات وفق القوالب المعتمدة<br/>
+              ✔ الرد على الشكاوى خلال ٤٨ ساعة<br/>
+              ✔ عدم تجاوز الحد الأعلى للسعر<br/>
+              ✔ تحديث بيانات الباقات فورياً<br/>
+              ✔ الإفصاح عن جميع الرسوم الإضافية
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: PRICING ════ -->
+    <div id="page-pricing" class="page">
+      <div class="card mb-24">
+        <div class="card-header">
+          <div>
+            <div class="card-title">💰 هيكل التسعير الوطني – موسم العمرة ١٤٤٦</div>
+            <div class="card-subtitle">مُصدر من وزارة الحج والعمرة – يسري من ١٤٤٦/٠١/٠١</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <span class="badge gold">الإصدار ٣.٢</span>
+            <button class="btn btn-primary btn-sm" onclick="showToast('✅ تم حفظ التعديلات','سيتم الإشعار للمكاتب فوراً')">💾 حفظ التعديلات</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>فئة الباقة</th><th>السعر الأدنى (ر.س)</th><th>السعر الأعلى (ر.س)</th><th>مدة الإقامة</th><th>مستوى الفندق</th><th>المسافة من الحرم</th><th>العناصر الإلزامية</th><th>إجراءات</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><span class="badge info">🟦 اقتصادية</span></td>
+                <td style="color:var(--green-glow);font-weight:700;">١,٢٠٠</td>
+                <td style="color:var(--red);font-weight:700;">١,٨٠٠</td>
+                <td>٧ أيام</td><td>٢-٣ نجوم</td><td>أقل من ٢ كم</td>
+                <td><span class="badge success" style="font-size:10px;">٤ عناصر</span></td>
+                <td><button class="btn btn-outline btn-sm">تعديل</button></td>
+              </tr>
+              <tr>
+                <td><span class="badge gold">🟨 متوسطة</span></td>
+                <td style="color:var(--green-glow);font-weight:700;">١,٨٠١</td>
+                <td style="color:var(--red);font-weight:700;">٢,٨٠٠</td>
+                <td>١٠ أيام</td><td>٣-٤ نجوم</td><td>أقل من ١ كم</td>
+                <td><span class="badge success" style="font-size:10px;">٦ عناصر</span></td>
+                <td><button class="btn btn-outline btn-sm">تعديل</button></td>
+              </tr>
+              <tr>
+                <td><span class="badge success">🟩 مميزة</span></td>
+                <td style="color:var(--green-glow);font-weight:700;">٢,٨٠١</td>
+                <td style="color:var(--red);font-weight:700;">٤,٢٠٠</td>
+                <td>١٤ يوم</td><td>٤-٥ نجوم</td><td>أقل من ٥٠٠ م</td>
+                <td><span class="badge success" style="font-size:10px;">٩ عناصر</span></td>
+                <td><button class="btn btn-outline btn-sm">تعديل</button></td>
+              </tr>
+              <tr>
+                <td><span class="badge danger">🟥 VIP</span></td>
+                <td style="color:var(--green-glow);font-weight:700;">٤,٢٠١</td>
+                <td style="color:var(--red);font-weight:700;">٨,٠٠٠</td>
+                <td>٢١ يوم</td><td>٥ نجوم</td><td>مطلة على الكعبة</td>
+                <td><span class="badge success" style="font-size:10px;">١٢ عنصر</span></td>
+                <td><button class="btn btn-outline btn-sm">تعديل</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">📋 العناصر الإلزامية للباقات</div></div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>✈️ تذكرة الطيران ذهاباً وإياباً</span><span class="badge success">الكل</span>
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>🏨 الإقامة الفندقية</span><span class="badge success">الكل</span>
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>🚌 النقل الداخلي من/إلى المطار</span><span class="badge success">الكل</span>
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>📄 استخراج تصريح العمرة</span><span class="badge success">الكل</span>
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>🍽️ وجبات (فطور + عشاء)</span><span class="badge gold">متوسط+</span>
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>🕌 جولات زيارة المشاعر</span><span class="badge gold">مميز+</span>
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;">
+              <span>👨‍💼 مرشد مخصص</span><span class="badge danger">VIP فقط</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🔧 عناصر إضافية مسموح بها</div></div>
+          <div style="font-size:13px;color:var(--text-sec);margin-bottom:12px;">هذه العناصر يمكن للمكتب إضافتها وتسعيرها منفردة بشفافية كاملة</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+              <span>💆 جلسات مساج ورعاية</span><input style="width:100px;text-align:center;" value="+ ٣٠٠ ر.س" />
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+              <span>📸 تصوير احترافي</span><input style="width:100px;text-align:center;" value="+ ٢٠٠ ر.س" />
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+              <span>🛍️ هدايا وتذكارات</span><input style="width:100px;text-align:center;" value="+ ١٥٠ ر.س" />
+            </div>
+            <div style="padding:8px 12px;background:var(--bg-surface);border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
+              <span>🚁 جولة جوية لمكة</span><input style="width:100px;text-align:center;" value="+ ٨٠٠ ر.س" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: PACKAGES ════ -->
+    <div id="page-packages" class="page">
+      <div class="grid-2 mb-24">
+        <div class="card" style="border-right:3px solid var(--blue);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:50px;height:50px;background:rgba(58,142,224,.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🟦</div>
+            <div><div style="font-size:17px;font-weight:800;font-family:'Tajawal',sans-serif;">باقة اقتصادية</div><div style="font-size:12px;color:var(--blue);">Economy Package</div></div>
+            <div style="margin-right:auto;"><div style="font-family:'Tajawal',sans-serif;font-size:22px;font-weight:900;color:var(--blue);">١,٢٠٠ – ١,٨٠٠</div><div style="font-size:11px;color:var(--text-muted);">ريال سعودي</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-sec);line-height:2.2;padding:12px;background:var(--bg-surface);border-radius:8px;">
+            ✈️ تذكرة طيران • 🏨 فندق ٢-٣ نجوم • 🚌 نقل مطار<br/>
+            📄 تصريح عمرة • 🕌 إقامة ٧ أيام
+          </div>
+          <div style="margin-top:12px;font-size:12px;color:var(--text-muted);padding:8px 12px;background:var(--red-dim);border-radius:6px;border:1px solid rgba(224,82,82,.2);">
+            🚫 لا يُسمح بإخفاء أي من هذه الخدمات أو التحميل عليها لاحقاً
+          </div>
+        </div>
+        <div class="card" style="border-right:3px solid var(--gold);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:50px;height:50px;background:rgba(201,168,76,.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🟨</div>
+            <div><div style="font-size:17px;font-weight:800;font-family:'Tajawal',sans-serif;">باقة متوسطة</div><div style="font-size:12px;color:var(--gold);">Standard Package</div></div>
+            <div style="margin-right:auto;"><div style="font-family:'Tajawal',sans-serif;font-size:22px;font-weight:900;color:var(--gold);">١,٨٠١ – ٢,٨٠٠</div><div style="font-size:11px;color:var(--text-muted);">ريال سعودي</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-sec);line-height:2.2;padding:12px;background:var(--bg-surface);border-radius:8px;">
+            ✈️ طيران ذ/إ • 🏨 فندق ٣-٤ نجوم • 🚌 نقل مطار<br/>
+            📄 تصريح • 🍽️ إفطار + عشاء • 🕌 ١٠ أيام
+          </div>
+        </div>
+        <div class="card" style="border-right:3px solid var(--green-bright);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:50px;height:50px;background:rgba(39,162,79,.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🟩</div>
+            <div><div style="font-size:17px;font-weight:800;font-family:'Tajawal',sans-serif;">باقة مميزة</div><div style="font-size:12px;color:var(--green-glow);">Premium Package</div></div>
+            <div style="margin-right:auto;"><div style="font-family:'Tajawal',sans-serif;font-size:22px;font-weight:900;color:var(--green-glow);">٢,٨٠١ – ٤,٢٠٠</div><div style="font-size:11px;color:var(--text-muted);">ريال سعودي</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-sec);line-height:2.2;padding:12px;background:var(--bg-surface);border-radius:8px;">
+            ✈️ طيران + طعام • 🏨 ٤-٥ نجوم • 🚌 نقل خاص<br/>
+            🕌 جولات + ١٤ يوم • 📸 مصور شخصي
+          </div>
+        </div>
+        <div class="card" style="border-right:3px solid var(--red);">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+            <div style="width:50px;height:50px;background:rgba(224,82,82,.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">🟥</div>
+            <div><div style="font-size:17px;font-weight:800;font-family:'Tajawal',sans-serif;">باقة VIP</div><div style="font-size:12px;color:var(--red);">VIP Package</div></div>
+            <div style="margin-right:auto;"><div style="font-family:'Tajawal',sans-serif;font-size:22px;font-weight:900;color:var(--red);">٤,٢٠١ – ٨,٠٠٠</div><div style="font-size:11px;color:var(--text-muted);">ريال سعودي</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--text-sec);line-height:2.2;padding:12px;background:var(--bg-surface);border-radius:8px;">
+            ✈️ درجة أولى • 🏨 مطل على الكعبة • 👨‍💼 مرشد خاص<br/>
+            🚁 جولة جوية • 🛍️ هدايا فاخرة • ٢١ يوم
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">🚫 أسماء مسميات مرفوضة تلقائياً بالنظام</div></div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+          <span class="badge danger">باقة شاملة بلا حدود</span>
+          <span class="badge danger">باقة الخدمة الكاملة</span>
+          <span class="badge danger">باقة بريميوم بلاس</span>
+          <span class="badge danger">باقة خصوصية</span>
+          <span class="badge danger">باقة كبار الشخصيات</span>
+          <span class="badge danger">باقة ذهبية++</span>
+          <span class="badge warning">أي مسمى خارج القائمة المعتمدة</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-sec);">
+          ✅ <strong style="color:var(--text-primary);">الأسماء المعتمدة فقط:</strong> اقتصادية — متوسطة — مميزة — VIP — حسب تعريف الوزارة بالكامل
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: MONITORING ════ -->
+    <div id="page-monitoring" class="page">
+      <div class="kpi-grid mb-24">
+        <div class="kpi-card red"><div class="kpi-icon">🚨</div><div class="kpi-value">١٢</div><div class="kpi-label">مكتب تحت المراقبة الآن</div></div>
+        <div class="kpi-card gold"><div class="kpi-icon">📊</div><div class="kpi-value">٨</div><div class="kpi-label">مكتب يسعّر عند الحد الأعلى دائماً</div></div>
+        <div class="kpi-card blue"><div class="kpi-icon">🔍</div><div class="kpi-value">٣٤</div><div class="kpi-label">فحص تلقائي اليوم</div></div>
+        <div class="kpi-card green"><div class="kpi-icon">✅</div><div class="kpi-value">٣١٠</div><div class="kpi-label">مكتب ملتزم بالكامل</div></div>
+      </div>
+
+      <div class="grid-3-1 mb-24">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🔍 مقارنة الأسعار – تحليل تلقائي</div>
+            <span class="badge danger">١٢ تجاوز مكتشف</span>
+          </div>
+          <div class="price-compare">
+            <div class="pc-rank" style="background:rgba(224,82,82,.1);color:var(--red);">⚠</div>
+            <div style="flex:1;"><div class="pc-name">مكتب النور للسياحة</div><div class="pc-pkg">باقة مميزة – الرياض</div></div>
+            <div style="text-align:left;"><div class="pc-price">٣,٨٠٠ ر.س</div><div class="pc-max">الحد: ٤,٢٠٠ ر.س</div></div>
+            <span class="pc-diff ok">✓ ملتزم</span>
+            <button class="btn btn-outline btn-sm">تفاصيل</button>
+          </div>
+          <div class="price-compare">
+            <div class="pc-rank" style="background:rgba(224,82,82,.1);color:var(--red);">🚨</div>
+            <div style="flex:1;"><div class="pc-name">مكتب الزهراء للسياحة</div><div class="pc-pkg">باقة اقتصادية – الرياض</div></div>
+            <div style="text-align:left;"><div class="pc-price" style="color:var(--red);">٢,٤٠٠ ر.س</div><div class="pc-max">الحد: ١,٨٠٠ ر.س</div></div>
+            <span class="pc-diff over">+٣٣٪</span>
+            <button class="btn btn-danger btn-sm">إنذار</button>
+          </div>
+          <div class="price-compare">
+            <div class="pc-rank" style="background:rgba(224,125,58,.1);color:var(--orange);">⚠</div>
+            <div style="flex:1;"><div class="pc-name">مكتب الفتح للعمرة</div><div class="pc-pkg">باقة متوسطة – جدة</div></div>
+            <div style="text-align:left;"><div class="pc-price" style="color:var(--orange);">٢,٧٥٠ ر.س</div><div class="pc-max">الحد: ٢,٨٠٠ ر.س</div></div>
+            <span class="pc-diff ok">✓ ملتزم</span>
+            <button class="btn btn-outline btn-sm">رصد</button>
+          </div>
+          <div class="price-compare">
+            <div class="pc-rank" style="background:rgba(224,82,82,.1);color:var(--red);">🚨</div>
+            <div style="flex:1;"><div class="pc-name">مكتب الشروق</div><div class="pc-pkg">باقة VIP – مكة المكرمة</div></div>
+            <div style="text-align:left;"><div class="pc-price" style="color:var(--red);">٩,٥٠٠ ر.س</div><div class="pc-max">الحد: ٨,٠٠٠ ر.س</div></div>
+            <span class="pc-diff over">+١٨.٧٪</span>
+            <button class="btn btn-danger btn-sm">إنذار</button>
+          </div>
+        </div>
+        <div>
+          <div class="card mb-20">
+            <div class="card-header"><div class="card-title">⚡ مستوى الخطر</div></div>
+            <div class="risk-level">
+              <span style="font-size:12px;min-width:90px;">مكتب الزهراء</span>
+              <div class="risk-meter" style="flex:1;"><div class="risk-fill" style="width:92%;background:var(--red);"></div></div>
+              <span style="font-size:12px;color:var(--red);font-weight:700;">عالٍ جداً</span>
+            </div>
+            <div class="risk-level">
+              <span style="font-size:12px;min-width:90px;">مكتب الشروق</span>
+              <div class="risk-meter" style="flex:1;"><div class="risk-fill" style="width:75%;background:var(--orange);"></div></div>
+              <span style="font-size:12px;color:var(--orange);font-weight:700;">عالٍ</span>
+            </div>
+            <div class="risk-level">
+              <span style="font-size:12px;min-width:90px;">مكتب النور</span>
+              <div class="risk-meter" style="flex:1;"><div class="risk-fill" style="width:45%;background:var(--gold);"></div></div>
+              <span style="font-size:12px;color:var(--gold);font-weight:700;">متوسط</span>
+            </div>
+            <div class="risk-level">
+              <span style="font-size:12px;min-width:90px;">مكتب الأمل</span>
+              <div class="risk-meter" style="flex:1;"><div class="risk-fill" style="width:22%;background:var(--green-bright);"></div></div>
+              <span style="font-size:12px;color:var(--green-glow);font-weight:700;">منخفض</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">📡 الفحص التلقائي</div></div>
+            <div style="font-size:12px;color:var(--text-sec);line-height:2.2;">
+              🔄 آخر فحص: <strong style="color:var(--green-glow);">منذ ١٢ دقيقة</strong><br/>
+              📊 مكاتب تم فحصها: <strong>٣٤٧</strong><br/>
+              ⚠️ تجاوزات مكتشفة: <strong style="color:var(--red);">١٢</strong><br/>
+              ✅ ملتزم بالكامل: <strong style="color:var(--green-glow);">٣١٠</strong><br/>
+              ⏰ الفحص القادم: <strong>بعد ٤٨ دقيقة</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: VIOLATIONS ════ -->
+    <div id="page-violations" class="page">
+      <div class="card mb-24">
+        <div class="card-header"><div class="card-title">⚖️ آلية العقوبات الرقمية المتدرجة</div></div>
+        <div class="stage-flow">
+          <div class="stage s1">
+            <div class="stage-circle">1️⃣</div>
+            <div class="stage-label">إنذار أول</div>
+            <div class="stage-desc">تنبيه رسمي + تسجيل زمني</div>
+          </div>
+          <div class="stage s2">
+            <div class="stage-circle">2️⃣</div>
+            <div class="stage-label">إنذار ثاني</div>
+            <div class="stage-desc">إشعار + مراجعة إلزامية</div>
+          </div>
+          <div class="stage s3">
+            <div class="stage-circle">3️⃣</div>
+            <div class="stage-label">إيقاف مؤقت</div>
+            <div class="stage-desc">تجميد النشاط رقمياً</div>
+          </div>
+          <div class="stage s4">
+            <div class="stage-circle">4️⃣</div>
+            <div class="stage-label">إحالة إدارية</div>
+            <div class="stage-desc">ملف قانوني رسمي</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 سجل المخالفات الموثقة</div>
+          <button class="btn btn-primary btn-sm" onclick="openViolationModal()">+ تسجيل مخالفة جديدة</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>رقم المخالفة</th><th>المكتب</th><th>نوع المخالفة</th><th>التاريخ والوقت</th><th>المرحلة</th><th>الإجراء المتخذ</th><th>الحالة</th><th>السند القانوني</th></tr></thead>
+            <tbody>
+              <tr>
+                <td style="font-family:monospace;color:var(--red);">VIO-2025-0043</td>
+                <td><strong>مكتب الزهراء للسياحة</strong></td>
+                <td>تجاوز السعر الأعلى ٣٣٪</td>
+                <td>١٤٤٦/٠٣/٠١ – ١٠:٣٤</td>
+                <td><span class="badge danger">إيقاف مؤقت</span></td>
+                <td>تجميد رقمي فوري</td>
+                <td><span class="badge warning">قيد التنفيذ</span></td>
+                <td><button class="btn btn-gold btn-sm">📄 PDF</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;color:var(--orange);">VIO-2025-0039</td>
+                <td><strong>مكتب الشروق</strong></td>
+                <td>تجاوز VIP +١٨٪</td>
+                <td>١٤٤٦/٠٢/٢٧ – ١٤:١٢</td>
+                <td><span class="badge warning">إنذار ثاني</span></td>
+                <td>إشعار + مراجعة مجدولة</td>
+                <td><span class="badge warning">جارٍ</span></td>
+                <td><button class="btn btn-gold btn-sm">📄 PDF</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;color:var(--gold);">VIO-2025-0031</td>
+                <td><strong>مكتب النور للسياحة</strong></td>
+                <td>مسميات باقات مخالفة</td>
+                <td>١٤٤٦/٠٢/١٥ – ٠٩:٢٢</td>
+                <td><span class="badge gold">إنذار أول</span></td>
+                <td>تنبيه رسمي مرسل</td>
+                <td><span class="badge success">استجاب</span></td>
+                <td><button class="btn btn-gold btn-sm">📄 PDF</button></td>
+              </tr>
+              <tr>
+                <td style="font-family:monospace;color:var(--blue);">VIO-2025-0018</td>
+                <td><strong>مكتب الأمل</strong></td>
+                <td>إخفاء عنصر إلزامي</td>
+                <td>١٤٤٦/٠١/٢٨ – ١٦:٤٥</td>
+                <td><span class="badge info">إحالة إدارية</span></td>
+                <td>ملف قانوني مُحال</td>
+                <td><span class="badge danger">معلق</span></td>
+                <td><button class="btn btn-gold btn-sm">📄 PDF</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: COMPLAINTS ════ -->
+    <div id="page-complaints" class="page">
+      <div class="grid-3-1">
+        <div>
+          <div class="kpi-grid mb-20" style="grid-template-columns:repeat(3,1fr);">
+            <div class="kpi-card gold"><div class="kpi-icon">📨</div><div class="kpi-value">٢٨</div><div class="kpi-label">شكوى جديدة</div></div>
+            <div class="kpi-card green"><div class="kpi-icon">✅</div><div class="kpi-value">١٢٨</div><div class="kpi-label">معالجة</div></div>
+            <div class="kpi-card blue"><div class="kpi-icon">⏱️</div><div class="kpi-value">١.٨</div><div class="kpi-label">متوسط الأيام</div></div>
+          </div>
+          <div class="card mb-20">
+            <div class="card-header"><div class="card-title">📝 تقديم شكوى جديدة</div></div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div class="form-group"><label>رقم الهوية الوطنية *</label><input placeholder="١٠٠٠٠٠٠٠٠٠" maxlength="10"/></div>
+              <div class="form-group"><label>رقم الجوال</label><input placeholder="٠٥XXXXXXXX"/></div>
+              <div class="form-group"><label>المكتب المشكو منه *</label><select><option>اختر المكتب</option><option>مكتب الزهراء للسياحة</option><option>مكتب النور</option><option>مكتب الشروق</option><option>مكتب آخر</option></select></div>
+              <div class="form-group"><label>نوع الشكوى *</label><select><option>تجاوز السعر المعتمد</option><option>خدمة مفقودة من الباقة</option><option>إلغاء الحجز</option><option>سوء المعاملة</option><option>أخرى</option></select></div>
+              <div class="form-group"><label>تفاصيل الشكوى *</label><textarea placeholder="اشرح ما تعرضت له بالتفصيل..."></textarea></div>
+              <div class="form-group"><label>المبلغ المتنازع عليه (ر.س)</label><input type="number" placeholder="0"/></div>
+              <div class="form-group"><label>إرفاق مستند داعم (اختياري)</label><input type="file"/></div>
+              <button class="btn btn-primary" onclick="submitComplaint()">إرسال الشكوى ←</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card mb-20">
+            <div class="card-header"><div class="card-title">📋 قائمة الشكاوى الواردة</div></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>رقم الشكوى</th><th>تاريخ التقديم</th><th>المكتب</th><th>النوع</th><th>الحالة</th><th>تفاصيل</th></tr></thead>
+                <tbody>
+                  <tr><td style="font-family:monospace;color:var(--green-glow);">CMP-2025-0128</td><td>منذ ١٢ د</td><td>مكتب الزهراء</td><td>تجاوز سعر</td><td><span class="badge warning">جديدة</span></td><td><button class="btn btn-outline btn-sm" onclick="showComplaintDetail()">عرض</button></td></tr>
+                  <tr><td style="font-family:monospace;color:var(--blue);">CMP-2025-0127</td><td>منذ ٢ س</td><td>مكتب الشروق</td><td>خدمة مفقودة</td><td><span class="badge info">قيد المراجعة</span></td><td><button class="btn btn-outline btn-sm">عرض</button></td></tr>
+                  <tr><td style="font-family:monospace;color:var(--gold);">CMP-2025-0120</td><td>أمس</td><td>مكتب النور</td><td>إلغاء حجز</td><td><span class="badge gold">مع المكتب</span></td><td><button class="btn btn-outline btn-sm">عرض</button></td></tr>
+                  <tr><td style="font-family:monospace;color:var(--green-glow);">CMP-2025-0115</td><td>٣ أيام</td><td>مكتب الأمانة</td><td>تجاوز سعر</td><td><span class="badge success">مُغلقة</span></td><td><button class="btn btn-outline btn-sm">عرض</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card" id="complaintDetailCard" style="display:none;">
+            <div class="card-header"><div class="card-title">🔎 تفاصيل الشكوى CMP-2025-0128</div><span class="badge warning">جديدة</span></div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot green"></div>
+                <div class="timeline-content">
+                  <div class="t-title">✅ تلقي الشكوى وإصدار رقم مرجعي</div>
+                  <div class="t-date">١٤٤٦/٠٣/٠١ – ١٠:٣٢</div>
+                  <div class="t-body">تم تسجيل الشكوى ومطابقة الهوية الوطنية. الرقم المرجعي: <strong style="color:var(--green-glow);">REF-٢٠٢٥-٠١٢٨</strong></div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot gold"></div>
+                <div class="timeline-content">
+                  <div class="t-title">📤 إحالة للمكتب المعني</div>
+                  <div class="t-date">١٤٤٦/٠٣/٠١ – ١٠:٣٥</div>
+                  <div class="t-body">تم إشعار مكتب الزهراء للسياحة وطلب الرد خلال ٤٨ ساعة</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot blue"></div>
+                <div class="timeline-content">
+                  <div class="t-title">⏳ انتظار رد المكتب</div>
+                  <div class="t-date">المهلة: ١٤٤٦/٠٣/٠٣ – ١٠:٣٥</div>
+                  <div class="t-body">المكتب لم يرد بعد. سيتم تصعيد الشكوى تلقائياً عند انتهاء المهلة</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: KPIs ════ -->
+    <div id="page-kpis" class="page">
+      <div class="kpi-grid mb-24">
+        <div class="kpi-card green"><div class="kpi-icon">📈</div><div class="kpi-value">٨٧٪</div><div class="kpi-label">نسبة الالتزام بالسعر</div><span class="kpi-change up">▲ +٣٢٪ منذ الإطلاق</span></div>
+        <div class="kpi-card gold"><div class="kpi-icon">⏱️</div><div class="kpi-value">١.٨</div><div class="kpi-label">متوسط معالجة الشكوى (يوم)</div><span class="kpi-change up">▼ -٦٤٪ تحسن</span></div>
+        <div class="kpi-card red"><div class="kpi-icon">📉</div><div class="kpi-value">٤٣</div><div class="kpi-label">مخالفة هذا الموسم</div><span class="kpi-change down">▼ -٣١٪ تراجع</span></div>
+        <div class="kpi-card blue"><div class="kpi-icon">😊</div><div class="kpi-value">٩٢٪</div><div class="kpi-label">رضا المواطنين</div><span class="kpi-change up">▲ +٢٨٪</span></div>
+      </div>
+
+      <div class="grid-2 mb-24">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📊 مقارنة الالتزام: قبل وبعد المنصة</div>
+          </div>
+          <div class="chart-wrap" style="height:220px;">
+            <canvas id="beforeAfterChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📉 تراجع المخالفات لكل موسم</div>
+          </div>
+          <div class="chart-wrap" style="height:220px;">
+            <canvas id="violationsTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3 mb-24">
+        <div class="card">
+          <div class="card-header"><div class="card-title">🎯 نسبة الالتزام</div></div>
+          <div class="ring-wrap">
+            <svg width="120" height="120" class="ring-svg">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--bg-surface)" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--green-glow)" stroke-width="12"
+                stroke-dasharray="314" stroke-dashoffset="41" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-label" style="margin-top:-10px;color:var(--green-glow);">٨٧٪</div>
+            <div class="ring-sub">مكاتب ملتزمة بالأسعار الوطنية</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">⏱️ وقت معالجة الشكاوى</div></div>
+          <div class="ring-wrap">
+            <svg width="120" height="120" class="ring-svg">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--bg-surface)" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" stroke-width="12"
+                stroke-dasharray="314" stroke-dashoffset="220" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-label" style="margin-top:-10px;color:var(--gold);">١.٨</div>
+            <div class="ring-sub">يوم متوسط – كان ٥ أيام قبل المنصة</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📉 تراجع التجاوزات</div></div>
+          <div class="ring-wrap">
+            <svg width="120" height="120" class="ring-svg">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--bg-surface)" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--red)" stroke-width="12"
+                stroke-dasharray="314" stroke-dashoffset="189" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-label" style="margin-top:-10px;color:var(--red);">٤٠٪</div>
+            <div class="ring-sub">انخفاض التجاوزات مقارنة بالموسم الماضي</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">📋 ملخص الأداء الموسمي للعرض أمام الوزارة</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>المؤشر</th><th>قبل المنصة ١٤٤٤</th><th>موسم ١٤٤٥</th><th>موسم ١٤٤٦ (الحالي)</th><th>التحسن الإجمالي</th></tr></thead>
+            <tbody>
+              <tr><td>نسبة الالتزام بالسعر</td><td style="color:var(--red);">٥٥٪</td><td style="color:var(--gold);">٧٤٪</td><td style="color:var(--green-glow);">٨٧٪</td><td><span class="badge success">+٣٢٪ ▲</span></td></tr>
+              <tr><td>متوسط معالجة الشكاوى</td><td style="color:var(--red);">٥ أيام</td><td style="color:var(--gold);">٣ أيام</td><td style="color:var(--green-glow);">١.٨ يوم</td><td><span class="badge success">-٦٤٪ ▼</span></td></tr>
+              <tr><td>عدد المخالفات المسجلة</td><td style="color:var(--red);">٢١٤</td><td style="color:var(--gold);">١١٨</td><td style="color:var(--green-glow);">٤٣</td><td><span class="badge success">-٨٠٪ ▼</span></td></tr>
+              <tr><td>رضا المواطنين</td><td style="color:var(--red);">٤١٪</td><td style="color:var(--gold);">٧٢٪</td><td style="color:var(--green-glow);">٩٢٪</td><td><span class="badge success">+٥١٪ ▲</span></td></tr>
+              <tr><td>مكاتب معتمدة في النظام</td><td style="color:var(--red);">٨٢</td><td style="color:var(--gold);">١٩٦</td><td style="color:var(--green-glow);">٣٤٧</td><td><span class="badge success">+٣٢٣٪ ▲</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PAGE: ROADMAP ════ -->
+    <div id="page-roadmap" class="page">
+      <div class="card mb-24">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🗺️ خارطة التوسع الاستراتيجي للمنصة الوطنية</div>
+            <div class="card-subtitle">رؤية تحويلية لرقمنة منظومة الحج والعمرة</div>
+          </div>
+          <span class="badge gold">٢٠٢٥ – ٢٠٢٨</span>
+        </div>
+        <div class="roadmap-phases">
+          <div class="phase-card" style="border-top:3px solid var(--green-bright);">
+            <div class="phase-num">١</div>
+            <div class="phase-icon">⚖️</div>
+            <div class="phase-title">المرحلة الأولى</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">٢٠٢٥</div>
+            <div class="phase-status"><span class="badge success">نشط الآن</span></div>
+            <ul class="phase-items">
+              <li>تسجيل وتوثيق المكاتب</li>
+              <li>هيكل التسعير الوطني</li>
+              <li>توحيد تعريف الباقات</li>
+              <li>رقابة استباقية تلقائية</li>
+              <li>نظام العقوبات الرقمية</li>
+              <li>بوابة شكاوى المواطنين</li>
+            </ul>
+          </div>
+          <div class="phase-card" style="border-top:3px solid var(--gold);">
+            <div class="phase-num">٢</div>
+            <div class="phase-icon">🎫</div>
+            <div class="phase-title">المرحلة الثانية</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">٢٠٢٦</div>
+            <div class="phase-status"><span class="badge gold">قريباً</span></div>
+            <ul class="phase-items">
+              <li>حجز إلكتروني رسمي مباشر</li>
+              <li>قائمة انتظار ذكية</li>
+              <li>تقييمات معتمدة للمكاتب</li>
+              <li>تطبيق جوال للحجاج</li>
+              <li>لوحة مقارنة الباقات</li>
+              <li>نظام إشعارات فوري</li>
+            </ul>
+          </div>
+          <div class="phase-card" style="border-top:3px solid var(--blue);">
+            <div class="phase-num">٣</div>
+            <div class="phase-icon">💳</div>
+            <div class="phase-title">المرحلة الثالثة</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">٢٠٢٧</div>
+            <div class="phase-status"><span class="badge info">مخطط</span></div>
+            <ul class="phase-items">
+              <li>بوابة دفع إلكتروني موحدة</li>
+              <li>محفظة رقمية للحاج</li>
+              <li>استرداد الأموال تلقائياً</li>
+              <li>فواتير رسمية آنية</li>
+              <li>ربط بالبنوك السعودية</li>
+              <li>ضمانات مالية للحجاج</li>
+            </ul>
+          </div>
+          <div class="phase-card" style="border-top:3px solid var(--red);">
+            <div class="phase-num">٤</div>
+            <div class="phase-icon">🛂</div>
+            <div class="phase-title">المرحلة الرابعة</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">٢٠٢٨</div>
+            <div class="phase-status"><span class="badge danger">رؤية مستقبلية</span></div>
+            <ul class="phase-items">
+              <li>ربط بتصاريح السفر الرسمية</li>
+              <li>تكامل مع منصة أبشر</li>
+              <li>ربط بالخطوط السعودية</li>
+              <li>بيانات الحجاج في الوقت الفعلي</li>
+              <li>ذكاء اصطناعي للتنبؤ</li>
+              <li>بوابة دولية للتسجيل</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">💡 المزايا للمكاتب (توازن الرقابة والتحفيز)</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+            <div style="padding:12px;background:rgba(39,162,79,.06);border-radius:8px;border-right:3px solid var(--green-bright);">
+              <strong style="color:var(--green-glow);">🏅 ختم الاعتماد الرسمي</strong>
+              <div style="color:var(--text-sec);margin-top:4px;">يزيد ثقة المواطن ويميز المكتب</div>
+            </div>
+            <div style="padding:12px;background:rgba(201,168,76,.06);border-radius:8px;border-right:3px solid var(--gold);">
+              <strong style="color:var(--gold);">📢 ظهور رسمي على المنصة الوطنية</strong>
+              <div style="color:var(--text-sec);margin-top:4px;">وصول مباشر لملايين المستخدمين</div>
+            </div>
+            <div style="padding:12px;background:rgba(58,142,224,.06);border-radius:8px;border-right:3px solid var(--blue);">
+              <strong style="color:var(--blue);">📊 لوحة تحليلات مجانية</strong>
+              <div style="color:var(--text-sec);margin-top:4px;">بيانات السوق وتوجهات الطلب</div>
+            </div>
+            <div style="padding:12px;background:rgba(61,214,140,.06);border-radius:8px;border-right:3px solid var(--green-glow);">
+              <strong style="color:var(--green-glow);">⚡ أولوية في الحجوزات الحكومية</strong>
+              <div style="color:var(--text-sec);margin-top:4px;">المجموعات والرحلات الرسمية</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">📊 الأثر المتوقع للمنصة</div></div>
+          <div class="chart-wrap" style="height:200px;">
+            <canvas id="impactChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- VIOLATION MODAL -->
+<div class="modal-overlay" id="violationModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>⚠️ تسجيل مخالفة جديدة</h3>
+      <button class="modal-close" onclick="closeViolationModal()">✕</button>
+    </div>
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="form-group"><label>المكتب المخالف *</label><select><option>اختر المكتب</option><option>مكتب الزهراء</option><option>مكتب الشروق</option><option>مكتب النور</option></select></div>
+      <div class="form-group"><label>نوع المخالفة *</label><select><option>تجاوز السعر الأعلى</option><option>مسمى باقة مخالف</option><option>إخفاء عنصر إلزامي</option><option>رفض معالجة الشكوى</option></select></div>
+      <div class="form-group"><label>مرحلة العقوبة *</label><select><option>إنذار أول</option><option>إنذار ثاني</option><option>إيقاف مؤقت</option><option>إحالة إدارية</option></select></div>
+      <div class="form-group"><label>السعر المسجل في المخالفة</label><input type="number" placeholder="ريال سعودي"/></div>
+      <div class="form-group full"><label>تفاصيل المخالفة</label><textarea placeholder="وصف تفصيلي للمخالفة وأدلة التوثيق..."></textarea></div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-primary" onclick="saveViolation()">حفظ وتوثيق رسمياً ←</button>
+      <button class="btn btn-outline" onclick="closeViolationModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <div class="toast-text">
+    <strong id="toastTitle">تمت العملية</strong>
+    <span id="toastBody">تم تنفيذ الإجراء بنجاح</span>
+  </div>
+</div>
+
+<script>
+// ─── Navigation ───
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = {
+    dashboard:'لوحة التحكم الرئيسية',offices:'سجل المكاتب المعتمدة',
+    register:'تسجيل مكتب جديد',pricing:'هيكل التسعير الوطني',
+    packages:'توحيد الباقات',monitoring:'الرقابة الاستباقية',
+    violations:'المخالفات والعقوبات',complaints:'شكاوى المواطنين',
+    kpis:'مؤشرات الأداء KPIs',roadmap:'خارطة التوسع الاستراتيجي'
+  };
+  document.getElementById('pageTitle').textContent = titles[id] || id;
+  document.getElementById('pageCrumb').textContent = titles[id] || id;
+  // render charts lazily
+  if (id === 'kpis') { renderKpiCharts(); }
+  if (id === 'roadmap') { renderRoadmapChart(); }
+}
+
+// ─── Charts ───
+let chartsRendered = {};
+
+function getChartDefaults() {
+  return {
+    color: '#8FB09A',
+    borderColor: 'rgba(143,176,154,0.1)',
+  };
+}
+
+// Dashboard – Compliance line chart
+(function renderDashboardCharts() {
+  const labels = ['١','٢','٣','٤','٥','٦','٧','٨','٩','١٠','١١','١٢','١٣','١٤','١٥','١٦','١٧','١٨','١٩','٢٠','٢١','٢٢','٢٣','٢٤','٢٥','٢٦','٢٧','٢٨','٢٩','٣٠'];
+  const data = [68,70,69,72,74,71,75,78,77,80,79,82,81,83,82,84,83,85,84,86,85,87,86,87,88,87,89,88,87,87];
+
+  const cc = document.getElementById('complianceChart');
+  if (cc) {
+    new Chart(cc, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'نسبة الالتزام ٪',
+          data,
+          borderColor: '#3DD68C',
+          backgroundColor: 'rgba(61,214,140,0.08)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          borderWidth: 2.5
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#4A6B55', font: { size: 10 } }, grid: { color: 'rgba(30,56,40,0.5)' } },
+          y: { min: 60, max: 100, ticks: { color: '#4A6B55', font: { size: 10 }, callback: v => v + '٪' }, grid: { color: 'rgba(30,56,40,0.5)' } }
+        }
+      }
+    });
+  }
+
+  const pc = document.getElementById('packagesChart');
+  if (pc) {
+    new Chart(pc, {
+      type: 'doughnut',
+      data: {
+        labels: ['اقتصادية','متوسطة','مميزة','VIP'],
+        datasets: [{
+          data: [42, 31, 20, 7],
+          backgroundColor: ['rgba(58,142,224,0.8)','rgba(201,168,76,0.8)','rgba(39,162,79,0.8)','rgba(224,82,82,0.8)'],
+          borderColor: '#0D1F14', borderWidth: 3
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'right', labels: { color: '#8FB09A', font: { size: 11 }, padding: 14 } }
+        }
+      }
+    });
+  }
+})();
+
+function renderKpiCharts() {
+  if (chartsRendered.kpi) return;
+  chartsRendered.kpi = true;
+
+  const bac = document.getElementById('beforeAfterChart');
+  if (bac) {
+    new Chart(bac, {
+      type: 'bar',
+      data: {
+        labels: ['١٤٤٤ (قبل)','١٤٤٥','١٤٤٦ (الآن)'],
+        datasets: [{
+          label: 'نسبة الالتزام ٪',
+          data: [55, 74, 87],
+          backgroundColor: ['rgba(224,82,82,0.7)','rgba(201,168,76,0.7)','rgba(61,214,140,0.7)'],
+          borderColor: ['#E05252','#C9A84C','#3DD68C'],
+          borderWidth: 2, borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { min: 0, max: 100, ticks: { color: '#4A6B55', callback: v => v + '٪' }, grid: { color: 'rgba(30,56,40,0.5)' } },
+          x: { ticks: { color: '#8FB09A' }, grid: { display: false } }
+        }
+      }
+    });
+  }
+
+  const vtc = document.getElementById('violationsTrendChart');
+  if (vtc) {
+    new Chart(vtc, {
+      type: 'line',
+      data: {
+        labels: ['١٤٤٤','١٤٤٥','١٤٤٦'],
+        datasets: [{
+          label: 'المخالفات',
+          data: [214, 118, 43],
+          borderColor: '#E05252',
+          backgroundColor: 'rgba(224,82,82,0.1)',
+          fill: true, tension: 0.4, borderWidth: 2.5,
+          pointBackgroundColor: '#E05252', pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { ticks: { color: '#4A6B55' }, grid: { color: 'rgba(30,56,40,0.5)' } },
+          x: { ticks: { color: '#8FB09A' }, grid: { display: false } }
+        }
+      }
+    });
+  }
+}
+
+function renderRoadmapChart() {
+  if (chartsRendered.roadmap) return;
+  chartsRendered.roadmap = true;
+  const ic = document.getElementById('impactChart');
+  if (ic) {
+    new Chart(ic, {
+      type: 'radar',
+      data: {
+        labels: ['الالتزام بالأسعار','رضا المواطن','معالجة الشكاوى','ثقة المكاتب','الشفافية','الرقابة'],
+        datasets: [
+          { label: 'قبل المنصة', data: [55,41,30,45,35,25], borderColor: 'rgba(224,82,82,0.8)', backgroundColor: 'rgba(224,82,82,0.08)', borderWidth: 2 },
+          { label: 'الآن', data: [87,92,85,78,90,88], borderColor: 'rgba(61,214,140,0.8)', backgroundColor: 'rgba(61,214,140,0.08)', borderWidth: 2 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#8FB09A', font: { size: 11 } } } },
+        scales: {
+          r: { ticks: { color: '#4A6B55', backdropColor: 'transparent' }, grid: { color: 'rgba(30,56,40,0.5)' }, pointLabels: { color: '#8FB09A', font: { size: 11 } }, min: 0, max: 100 }
+        }
+      }
+    });
+  }
+}
+
+// ─── Modal ───
+function openViolationModal() {
+  document.getElementById('violationModal').classList.add('open');
+}
+function closeViolationModal() {
+  document.getElementById('violationModal').classList.remove('open');
+}
+function saveViolation() {
+  closeViolationModal();
+  showToast('✅ تم توثيق المخالفة رسمياً','سيتم إشعار المكتب فوراً بالعقوبة المحددة');
+}
+
+// ─── Complaint ───
+function submitComplaint() {
+  const ref = 'REF-٢٠٢٥-' + Math.floor(1000 + Math.random() * 9000);
+  showToast('📨 تم استلام شكواك','رقمك المرجعي: ' + ref);
+}
+function showComplaintDetail() {
+  const card = document.getElementById('complaintDetailCard');
+  card.style.display = card.style.display === 'none' ? 'block' : 'none';
+}
+
+// ─── Toast ───
+function showToast(title, body) {
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastBody').textContent = body;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// Close modal on overlay click
+document.getElementById('violationModal').addEventListener('click', function(e) {
+  if (e.target === this) closeViolationModal();
+});
+</script>
+</body>
+</html>
