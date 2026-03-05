@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>بوابة التأشيرات - وزارة الخارجية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green-dark:  #005430;
+      --green-main:  #007A3D;
+      --green-light: #009651;
+      --gold:        #C9A84C;
+      --gold-light:  #E8C97A;
+      --white:       #ffffff;
+      --gray-bg:     #F4F6F5;
+      --gray-mid:    #D8DDD9;
+      --gray-text:   #6B7B70;
+      --text-dark:   #1A2E22;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--gray-bg);
+      color: var(--text-dark);
+      direction: rtl;
+    }
+
+    /* ===== TOP BAR ===== */
+    .topbar {
+      background: var(--green-dark);
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+    }
+    .topbar a { color: rgba(255,255,255,0.8); text-decoration: none; margin: 0 10px; transition: color .2s; }
+    .topbar a:hover { color: var(--gold-light); }
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
+    .topbar-right a {
+      background: rgba(255,255,255,0.1);
+      padding: 3px 12px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .topbar-right a:hover { background: var(--gold); color: var(--green-dark); }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(0,84,48,0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+    .logo-emblem {
+      width: 60px;
+      height: 60px;
+    }
+    .logo-text { line-height: 1.3; }
+    .logo-text .ar { font-size: 16px; font-weight: 700; color: var(--green-dark); }
+    .logo-text .en { font-size: 11px; color: var(--gray-text); letter-spacing: .5px; }
+
+    /* NAV */
+    nav { display: flex; gap: 4px; align-items: center; }
+    nav a {
+      color: var(--text-dark);
+      text-decoration: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: all .2s;
+      position: relative;
+    }
+    nav a:hover, nav a.active {
+      color: var(--green-main);
+      background: rgba(0,150,81,0.08);
+    }
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: 16px;
+      left: 16px;
+      height: 3px;
+      background: var(--green-main);
+      border-radius: 2px;
+    }
+    .nav-cta {
+      background: var(--green-main) !important;
+      color: var(--white) !important;
+      padding: 10px 20px !important;
+      border-radius: 8px !important;
+    }
+    .nav-cta:hover { background: var(--green-dark) !important; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-main) 55%, var(--green-light) 100%);
+      padding: 70px 40px 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: 10%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      letter-spacing: .5px;
+    }
+    .hero h1 {
+      font-size: 46px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .hero h1 span { color: var(--gold-light); }
+    .hero p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.82);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* SEARCH BOX */
+    .search-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 32px;
+      max-width: 720px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .search-box h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--gray-mid);
+    }
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-text);
+      margin-bottom: 6px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      border: 1.5px solid var(--gray-mid);
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color .2s;
+      direction: rtl;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--green-main);
+      box-shadow: 0 0 0 3px rgba(0,150,81,0.1);
+    }
+    .btn-search {
+      background: var(--green-main);
+      color: var(--white);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-search:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,84,48,0.3); }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-mid);
+      padding: 20px 40px;
+    }
+    .stats-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .num { font-size: 28px; font-weight: 900; color: var(--green-main); }
+    .stat-item .lbl { font-size: 12px; color: var(--gray-text); margin-top: 2px; }
+
+    /* ===== SECTION TITLE ===== */
+    .section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+    .section-header { text-align: center; margin-bottom: 44px; }
+    .section-header .tag {
+      display: inline-block;
+      background: rgba(0,150,81,0.1);
+      color: var(--green-main);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: .5px;
+    }
+    .section-header h2 { font-size: 30px; font-weight: 800; color: var(--text-dark); }
+    .section-header p { color: var(--gray-text); margin-top: 10px; font-size: 15px; }
+
+    /* ===== SERVICES GRID ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+      border: 1.5px solid var(--gray-mid);
+      transition: all .25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-main), var(--green-light));
+      transform: scaleX(0);
+      transition: transform .3s;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,84,48,0.14); border-color: var(--green-light); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, rgba(0,122,61,0.1), rgba(0,150,81,0.15));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 28px;
+      transition: transform .2s;
+    }
+    .service-card:hover .service-icon { transform: scale(1.1) rotate(-3deg); }
+    .service-card h3 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+    .service-card p { font-size: 13px; color: var(--gray-text); line-height: 1.6; }
+    .service-card .arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--green-main);
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 14px;
+    }
+
+    /* ===== VISA TYPES ===== */
+    .visa-types { background: var(--white); padding: 60px 0; }
+    .visa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .visa-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid var(--gray-mid);
+      transition: all .25s;
+      cursor: pointer;
+    }
+    .visa-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,84,48,0.12); }
+    .visa-card-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .visa-card-header.green { background: linear-gradient(135deg, var(--green-dark), var(--green-main)); }
+    .visa-card-header.gold { background: linear-gradient(135deg, #7A6020, var(--gold)); }
+    .visa-card-header.teal { background: linear-gradient(135deg, #005C6B, #008099); }
+    .visa-card-icon { font-size: 32px; }
+    .visa-card-header h3 { font-size: 17px; font-weight: 700; color: var(--white); }
+    .visa-card-header p { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+    .visa-card-body { padding: 20px 24px; }
+    .visa-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-mid);
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+    .visa-feature:last-child { border-bottom: none; }
+    .visa-feature .dot {
+      width: 8px; height: 8px;
+      background: var(--green-main);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .visa-card-footer {
+      padding: 16px 24px;
+      background: var(--gray-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-outline {
+      border: 2px solid var(--green-main);
+      color: var(--green-main);
+      background: transparent;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-outline:hover { background: var(--green-main); color: var(--white); }
+
+    /* ===== STEPS ===== */
+    .steps-bg { background: linear-gradient(180deg, var(--gray-bg) 0%, var(--white) 100%); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      right: 10%;
+      left: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green-light), var(--green-dark));
+      z-index: 0;
+    }
+    .step-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      padding: 10px;
+    }
+    .step-num {
+      width: 80px; height: 80px;
+      background: var(--white);
+      border: 3px solid var(--green-main);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--green-main);
+      box-shadow: 0 4px 16px rgba(0,122,61,0.2);
+      transition: all .25s;
+    }
+    .step-item:hover .step-num { background: var(--green-main); color: var(--white); transform: scale(1.08); }
+    .step-item h4 { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+    .step-item p { font-size: 12px; color: var(--gray-text); line-height: 1.5; }
+
+    /* ===== ANNOUNCEMENTS ===== */
+    .announcements-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 28px;
+    }
+    .news-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid var(--gray-mid);
+      transition: box-shadow .2s;
+    }
+    .news-card:hover { box-shadow: 0 8px 28px rgba(0,84,48,0.1); }
+    .news-card-img {
+      height: 200px;
+      background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+    }
+    .news-card-body { padding: 22px; }
+    .news-tag {
+      display: inline-block;
+      background: rgba(0,150,81,0.1);
+      color: var(--green-main);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .news-card-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
+    .news-card-body p { font-size: 13px; color: var(--gray-text); line-height: 1.7; }
+    .news-date { font-size: 12px; color: var(--gray-text); margin-top: 14px; display: flex; align-items: center; gap: 4px; }
+
+    .sidebar-news { display: flex; flex-direction: column; gap: 14px; }
+    .side-news-item {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 16px;
+      border: 1.5px solid var(--gray-mid);
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .side-news-item:hover { border-color: var(--green-light); background: rgba(0,150,81,0.03); }
+    .side-news-icon {
+      width: 44px; height: 44px;
+      background: rgba(0,122,61,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .side-news-text h4 { font-size: 13px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; }
+    .side-news-text span { font-size: 11px; color: var(--gray-text); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--green-dark);
+      color: rgba(255,255,255,0.85);
+      padding: 50px 40px 0;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+    .footer-brand .logo-wrap { margin-bottom: 16px; }
+    .footer-brand .logo-text .ar { color: var(--white); }
+    .footer-brand .logo-text .en { color: rgba(255,255,255,0.6); }
+    .footer-brand p { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.6); }
+    .footer-col h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.15); }
+    .footer-col a { display: block; color: rgba(255,255,255,0.65); font-size: 13px; text-decoration: none; margin-bottom: 10px; transition: color .2s; }
+    .footer-col a:hover { color: var(--gold-light); padding-right: 4px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .social-links { display: flex; gap: 10px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      color: var(--white);
+    }
+    .social-btn:hover { background: var(--gold); color: var(--green-dark); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .visa-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 28px; }
+      .search-row { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .visa-grid, .steps-grid, .announcements-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+      .topbar { font-size: 11px; padding: 6px 16px; }
+    }
+
+    /* Scroll animation */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .5s, transform .5s; }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span>🇸🇦 المملكة العربية السعودية</span>
+    <a href="#">وزارة الخارجية</a>
+    <a href="#">البوابة الحكومية</a>
+    <a href="#">اتصل بنا</a>
+  </div>
+  <div class="topbar-right">
+    <a href="#">English</a>
+    <a href="#">🔒 تسجيل الدخول</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo-wrap">
+      <!-- SVG النسر السعودي مبسّط -->
+      <svg class="logo-emblem" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="#007A3D" stroke="#C9A84C" stroke-width="2"/>
+        <text x="50" y="62" text-anchor="middle" font-size="40" fill="#C9A84C">🦅</text>
+      </svg>
+      <div class="logo-text">
+        <div class="ar">بوابة التأشيرات السعودية</div>
+        <div class="en">Saudi Visa Portal | MOFA</div>
+      </div>
+    </a>
+    <nav>
+      <a href="#" class="active">الرئيسية</a>
+      <a href="#">أنواع التأشيرات</a>
+      <a href="#">الاستعلام</a>
+      <a href="#">الخدمات الإلكترونية</a>
+      <a href="#">الأسئلة الشائعة</a>
+      <a href="#" class="nav-cta">تقديم طلب</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">✦ بوابة التأشيرات الرسمية لوزارة الخارجية</span>
+    <h1>بوابتك للمملكة<br><span>العربية السعودية</span></h1>
+    <p>استعلم عن تأشيرتك، تابع حالة طلبك، وتعرّف على جميع أنواع التأشيرات المتاحة بكل سهولة وأمان.</p>
+    <!-- SEARCH BOX -->
+    <div class="search-box">
+      <h3>🔍 الاستعلام عن التأشيرة</h3>
+      <div class="search-row">
+        <div class="form-group">
+          <label>رقم الطلب / Application Number</label>
+          <input type="text" placeholder="أدخل رقم الطلب"/>
+        </div>
+        <div class="form-group">
+          <label>رقم الجواز / Passport Number</label>
+          <input type="text" placeholder="أدخل رقم الجواز"/>
+        </div>
+        <button class="btn-search" onclick="alert('جاري الاستعلام...')">
+          <span>استعلام</span>
+          <span>←</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="num">+٢.٥ م</div><div class="lbl">طلب تأشيرة سنوياً</div></div>
+    <div class="stat-item"><div class="num">١٨٠+</div><div class="lbl">دولة مخدومة</div></div>
+    <div class="stat-item"><div class="num">٩٨٪</div><div class="lbl">رضا المستخدمين</div></div>
+    <div class="stat-item"><div class="num">٢٤/٧</div><div class="lbl">خدمة متواصلة</div></div>
+    <div class="stat-item"><div class="num">٣ أيام</div><div class="lbl">متوسط وقت المعالجة</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="section fade-up">
+  <div class="section-header">
+    <span class="tag">خدماتنا الإلكترونية</span>
+    <h2>كل ما تحتاجه في مكان واحد</h2>
+    <p>خدمات متكاملة لتسهيل إجراءات التأشيرة</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>تقديم طلب تأشيرة</h3>
+      <p>قدّم طلبك إلكترونياً بخطوات بسيطة وسريعة دون الحاجة للزيارة الشخصية</p>
+      <div class="arrow">تقديم الطلب ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <h3>تتبع حالة الطلب</h3>
+      <p>تابع حالة طلب تأشيرتك لحظة بلحظة عبر رقم الطلب أو رقم الجواز</p>
+      <div class="arrow">استعلم الآن ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💳</div>
+      <h3>سداد الرسوم</h3>
+      <p>ادفع رسوم التأشيرة بأمان عبر بوابة الدفع الإلكتروني المعتمدة</p>
+      <div class="arrow">الدفع الآن ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📄</div>
+      <h3>طباعة التأشيرة</h3>
+      <p>اطبع تأشيرتك المعتمدة مباشرة بعد قبول الطلب والمصادقة عليه</p>
+      <div class="arrow">طباعة ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <h3>تمديد التأشيرة</h3>
+      <p>جدّد أو مدّد تأشيرتك الحالية قبل انتهاء صلاحيتها إلكترونياً</p>
+      <div class="arrow">تمديد ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👨‍👩‍👧</div>
+      <h3>تأشيرة العائلة</h3>
+      <p>قدّم طلبات التأشيرة لجميع أفراد العائلة في طلب موحّد واحد</p>
+      <div class="arrow">طلب عائلي ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h3>تأشيرة الأعمال</h3>
+      <p>خدمات مخصصة لرجال الأعمال وإجراءات معجّلة للزيارات التجارية</p>
+      <div class="arrow">تأشيرة عمل ←</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📞</div>
+      <h3>الدعم والمساعدة</h3>
+      <p>تواصل مع فريق الدعم المتخصص للإجابة على استفساراتك على مدار الساعة</p>
+      <div class="arrow">تواصل معنا ←</div>
+    </div>
+  </div>
+</div>
+
+<!-- VISA TYPES -->
+<div class="visa-types">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="tag">أنواع التأشيرات</span>
+      <h2>اختر التأشيرة المناسبة لك</h2>
+      <p>تعرّف على أنواع التأشيرات المتاحة ومتطلبات كل منها</p>
+    </div>
+    <div class="visa-grid">
+      <div class="visa-card">
+        <div class="visa-card-header green">
+          <div class="visa-card-icon">✈️</div>
+          <div>
+            <h3>تأشيرة الزيارة السياحية</h3>
+            <p>Tourist Visit Visa</p>
+          </div>
+        </div>
+        <div class="visa-card-body">
+          <div class="visa-feature"><span class="dot"></span> صالحة لمدة 90 يوماً</div>
+          <div class="visa-feature"><span class="dot"></span> إقامة لمدة 30 يوماً</div>
+          <div class="visa-feature"><span class="dot"></span> دخول مفرد أو متعدد</div>
+          <div class="visa-feature"><span class="dot"></span> متاحة لأكثر من 50 جنسية</div>
+        </div>
+        <div class="visa-card-footer">
+          <span style="font-size:13px; color:var(--gray-text);">الرسوم: <strong style="color:var(--green-main)">300 ريال</strong></span>
+          <button class="btn-outline">تقديم طلب</button>
+        </div>
+      </div>
+
+      <div class="visa-card">
+        <div class="visa-card-header gold">
+          <div class="visa-card-icon">🕌</div>
+          <div>
+            <h3>تأشيرة العمرة</h3>
+            <p>Umrah Visa</p>
+          </div>
+        </div>
+        <div class="visa-card-body">
+          <div class="visa-feature"><span class="dot"></span> صالحة لمدة 30 يوماً</div>
+          <div class="visa-feature"><span class="dot"></span> تشمل مكة والمدينة</div>
+          <div class="visa-feature"><span class="dot"></span> متاحة طوال العام</div>
+          <div class="visa-feature"><span class="dot"></span> إجراءات سريعة وميسّرة</div>
+        </div>
+        <div class="visa-card-footer">
+          <span style="font-size:13px; color:var(--gray-text);">الرسوم: <strong style="color:var(--green-main)">مجانية</strong></span>
+          <button class="btn-outline">تقديم طلب</button>
+        </div>
+      </div>
+
+      <div class="visa-card">
+        <div class="visa-card-header teal">
+          <div class="visa-card-icon">💼</div>
+          <div>
+            <h3>تأشيرة الأعمال</h3>
+            <p>Business Visa</p>
+          </div>
+        </div>
+        <div class="visa-card-body">
+          <div class="visa-feature"><span class="dot"></span> صالحة لمدة 12 شهراً</div>
+          <div class="visa-feature"><span class="dot"></span> دخول متعدد</div>
+          <div class="visa-feature"><span class="dot"></span> إجراءات معجّلة</div>
+          <div class="visa-feature"><span class="dot"></span> تشمل المؤتمرات والمعارض</div>
+        </div>
+        <div class="visa-card-footer">
+          <span style="font-size:13px; color:var(--gray-text);">الرسوم: <strong style="color:var(--green-main)">500 ريال</strong></span>
+          <button class="btn-outline">تقديم طلب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPS -->
+<div class="steps-bg">
+  <div class="section fade-up">
+    <div class="section-header">
+      <span class="tag">كيف يعمل</span>
+      <h2>خطوات التقديم على التأشيرة</h2>
+      <p>عملية بسيطة وسهلة في خمس خطوات فقط</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <h4>إنشاء حساب</h4>
+        <p>سجّل حسابك على البوابة بمعلوماتك الأساسية</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <h4>اختر نوع التأشيرة</h4>
+        <p>حدّد نوع التأشيرة المناسب لغرض زيارتك</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <h4>رفع المستندات</h4>
+        <p>أرفق جميع الوثائق المطلوبة بصيغة رقمية</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <h4>سداد الرسوم</h4>
+        <p>ادفع الرسوم المقررة عبر بوابة الدفع الآمنة</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <h4>استلام التأشيرة</h4>
+        <p>استلم تأشيرتك الإلكترونية على بريدك الآمن</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENTS -->
+<div class="section fade-up">
+  <div class="section-header">
+    <span class="tag">الأخبار والإعلانات</span>
+    <h2>آخر المستجدات</h2>
+  </div>
+  <div class="announcements-grid">
+    <div class="news-card">
+      <div class="news-card-img">🌍</div>
+      <div class="news-card-body">
+        <span class="news-tag">إعلان رسمي</span>
+        <h3>تطوير بوابة التأشيرات السعودية بمزايا جديدة لتسهيل الإجراءات</h3>
+        <p>أعلنت وزارة الخارجية عن حزمة تطويرات شاملة في بوابة التأشيرات الإلكترونية تشمل إضافة خدمات جديدة وتسريع وقت معالجة الطلبات، لتعزيز تجربة المتقدمين من جميع أنحاء العالم.</p>
+        <div class="news-date">📅 ١٥ مارس ٢٠٢٥</div>
+      </div>
+    </div>
+    <div class="sidebar-news">
+      <div class="side-news-item">
+        <div class="side-news-icon">📢</div>
+        <div class="side-news-text">
+          <h4>تمديد صلاحية تأشيرات الزيارة العائلية</h4>
+          <span>📅 ١٠ مارس ٢٠٢٥</span>
+        </div>
+      </div>
+      <div class="side-news-item">
+        <div class="side-news-icon">🤝</div>
+        <div class="side-news-text">
+          <h4>اتفاقية إعفاء من التأشيرة مع 12 دولة جديدة</h4>
+          <span>📅 ٥ مارس ٢٠٢٥</span>
+        </div>
+      </div>
+      <div class="side-news-item">
+        <div class="side-news-icon">⚡</div>
+        <div class="side-news-text">
+          <h4>خدمة التأشيرة الفورية للزيارات التجارية العاجلة</h4>
+          <span>📅 ١ مارس ٢٠٢٥</span>
+        </div>
+      </div>
+      <div class="side-news-item">
+        <div class="side-news-icon">📱</div>
+        <div class="side-news-text">
+          <h4>إطلاق تطبيق الجوال لمتابعة طلبات التأشيرة</h4>
+          <span>📅 ٢٠ فبراير ٢٠٢٥</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo-wrap">
+          <svg width="48" height="48" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="rgba(255,255,255,0.1)" stroke="#C9A84C" stroke-width="2"/><text x="50" y="62" text-anchor="middle" font-size="36" fill="#C9A84C">🦅</text></svg>
+          <div class="logo-text">
+            <div class="ar">بوابة التأشيرات السعودية</div>
+            <div class="en">Saudi Visa Portal</div>
+          </div>
+        </a>
+        <p>البوابة الرسمية لخدمات التأشيرات التابعة لوزارة الخارجية في المملكة العربية السعودية</p>
+      </div>
+      <div class="footer-col">
+        <h4>الخدمات</h4>
+        <a href="#">تقديم طلب تأشيرة</a>
+        <a href="#">الاستعلام عن الطلب</a>
+        <a href="#">سداد الرسوم</a>
+        <a href="#">تمديد التأشيرة</a>
+        <a href="#">تأشيرة العائلة</a>
+      </div>
+      <div class="footer-col">
+        <h4>روابط مفيدة</h4>
+        <a href="#">وزارة الخارجية</a>
+        <a href="#">البوابة الحكومية</a>
+        <a href="#">هيئة السياحة</a>
+        <a href="#">الجوازات</a>
+        <a href="#">الإقامة المميزة</a>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <a href="#">📞 920000897</a>
+        <a href="#">📧 visa@mofa.gov.sa</a>
+        <a href="#">🕐 ٢٤/٧ خدمة متواصلة</a>
+        <a href="#">💬 الدردشة المباشرة</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© ٢٠٢٥ وزارة الخارجية - المملكة العربية السعودية. جميع الحقوق محفوظة.</span>
+      <div class="social-links">
+        <a class="social-btn" title="X">𝕏</a>
+        <a class="social-btn" title="Instagram">📷</a>
+        <a class="social-btn" title="YouTube">▶</a>
+        <a class="social-btn" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
