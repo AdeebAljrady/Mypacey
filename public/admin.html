@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة الوزارة - منصة مراقبة مكاتب السفر</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="admin">
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-globe"></i> منصة مراقبة السفر
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="admin.html" class="active">بوابة الوزارة</a></li>
+        <li><a href="citizen.html">بوابة المواطن</a></li>
+        <li><a href="office.html">بوابة المكتب</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" style="padding: 2rem;">
+    <div class="container">
+      <h1>لوحة تحكم الوزارة</h1>
+      <p>إدارة شاملة لمكاتب السفر والمخالفات والشكاوى</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section>
+    <div class="container">
+      <!-- Compliance Indicators -->
+      <div id="complianceIndicators"></div>
+
+      <!-- Offices List -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-list"></i> قائمة المكاتب المسجلة</h2>
+        </div>
+        <div class="card-body">
+          <div id="officesList"></div>
+        </div>
+      </div>
+
+      <!-- Violations -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-exclamation-triangle"></i> آخر المخالفات المسجلة</h2>
+        </div>
+        <div class="card-body">
+          <div id="violations"></div>
+        </div>
+      </div>
+
+      <!-- Add New Package Form -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-plus"></i> إضافة باقة جديدة</h2>
+        </div>
+        <div class="card-body">
+          <form id="addPackageFormAdmin" onsubmit="handleAddPackageAdmin(event)">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="packageNameAdmin">اسم الباقة</label>
+                <input type="text" id="packageNameAdmin" placeholder="مثلاً: عمرة اقتصادية" required>
+              </div>
+              <div class="form-group">
+                <label for="packageTypeAdmin">نوع الباقة</label>
+                <select id="packageTypeAdmin" required>
+                  <option value="">اختر النوع</option>
+                  <option value="اقتصادية">اقتصادية</option>
+                  <option value="عائلية">عائلية</option>
+                  <option value="VIP">VIP</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="packagePriceAdmin">السعر (ريال)</label>
+              <input type="number" id="packagePriceAdmin" placeholder="أدخل السعر" min="0" step="100" required>
+              <small style="color: #666;">النطاق المسموح: 5000 - 50000 ريال</small>
+            </div>
+            <div class="form-group">
+              <label for="packageServicesAdmin">الخدمات المقدمة</label>
+              <textarea id="packageServicesAdmin" placeholder="أدخل الخدمات المقدمة" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-check"></i> إضافة الباقة
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-bolt"></i> إجراءات سريعة</h2>
+        </div>
+        <div class="card-body">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <button class="btn btn-primary" onclick="showAlert('جاري تحميل التقارير...', 'info')">
+              <i class="fas fa-file-pdf"></i> تنزيل التقرير الشهري
+            </button>
+            <button class="btn btn-primary" onclick="showAlert('جاري إرسال الإشعارات...', 'info')">
+              <i class="fas fa-bell"></i> إرسال إشعارات للمكاتب
+            </button>
+            <button class="btn btn-warning" onclick="showAlert('جاري تحديث البيانات...', 'info')">
+              <i class="fas fa-sync"></i> تحديث البيانات
+            </button>
+            <button class="btn btn-danger" onclick="showAlert('جاري إنشاء نسخة احتياطية...', 'info')">
+              <i class="fas fa-database"></i> نسخة احتياطية
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 منصة مراقبة مكاتب السفر والسياحة. جميع الحقوق محفوظة.</p>
+      <p>تم تطويره بواسطة فريق التطوير - وزارة السياحة</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
  
