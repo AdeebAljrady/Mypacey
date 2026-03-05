@@ -1,1 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة المكتب - منصة مراقبة مكاتب السفر</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="office">
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-globe"></i> منصة مراقبة السفر
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="admin.html">بوابة الوزارة</a></li>
+        <li><a href="citizen.html">بوابة المواطن</a></li>
+        <li><a href="office.html" class="active">بوابة المكتب</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" style="padding: 2rem;">
+    <div class="container">
+      <h1>بوابة مكتب السفر</h1>
+      <p>إدارة الباقات والخدمات والتحقق من الالتزام بمعايير المنصة</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section>
+    <div class="container">
+      <!-- Office Info Card -->
+      <div class="card">
+        <div class="card-header">
+          <h2><i class="fas fa-building"></i> معلومات المكتب</h2>
+        </div>
+        <div class="card-body">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div>
+              <p><strong>اسم المكتب:</strong> منار السفر</p>
+              <p><strong>رقم الترخيص:</strong> 12345</p>
+              <p><strong>الحالة:</strong> <span class="badge badge-success">معتمد</span></p>
+            </div>
+            <div>
+              <p><strong>تاريخ التسجيل:</strong> 2023-01-15</p>
+              <p><strong>التقييم:</strong> ⭐ 4.5 / 5</p>
+              <p><strong>عدد الباقات:</strong> 5</p>
+            </div>
+            <div>
+              <p><strong>معدل الالتزام:</strong> 98%</p>
+              <p><strong>الشكاوى المعلقة:</strong> 0</p>
+              <p><strong>آخر تحديث:</strong> 2024-02-20</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approval Seal -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-certificate"></i> ختم الاعتماد الرسمي</h2>
+        </div>
+        <div class="card-body">
+          <p style="margin-bottom: 1rem;">عرض ختم الاعتماد الرسمي للمكتب:</p>
+          <button class="btn btn-primary" onclick="showApprovalSeal()">
+            <i class="fas fa-eye"></i> عرض الختم
+          </button>
+        </div>
+      </div>
+
+      <!-- Current Packages -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-suitcase"></i> الباقات الحالية</h2>
+        </div>
+        <div class="card-body">
+          <div id="officePackages"></div>
+        </div>
+      </div>
+
+      <!-- Add New Package -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-plus-circle"></i> إضافة باقة جديدة</h2>
+        </div>
+        <div class="card-body">
+          <form id="addPackageFormOffice" onsubmit="handleAddPackageOffice(event)">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="packageNameOffice">اسم الباقة</label>
+                <input type="text" id="packageNameOffice" placeholder="مثلاً: عمرة اقتصادية" required>
+              </div>
+              <div class="form-group">
+                <label for="packageTypeOffice">نوع الباقة</label>
+                <select id="packageTypeOffice" required>
+                  <option value="">اختر النوع</option>
+                  <option value="اقتصادية">اقتصادية</option>
+                  <option value="عائلية">عائلية</option>
+                  <option value="VIP">VIP</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="packagePriceOffice">السعر (ريال)</label>
+              <input type="number" id="packagePriceOffice" placeholder="أدخل السعر" min="0" step="100" required>
+              <small style="color: #666;">
+                النطاق المسموح: 5000 - 50000 ريال
+                <br>
+                ⚠️ سيظهر تحذير إذا كان السعر خارج النطاق
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="packageDurationOffice">مدة الرحلة</label>
+              <input type="text" id="packageDurationOffice" placeholder="مثلاً: 10 أيام" required>
+            </div>
+
+            <div class="form-group">
+              <label for="packageServicesOffice">الخدمات المقدمة</label>
+              <textarea id="packageServicesOffice" placeholder="أدخل الخدمات المقدمة (فندق، تأشيرة، مواصلات، إلخ)" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-check"></i> إضافة الباقة
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Price Guidelines -->
+      <div class="card mt-3" style="background-color: #fff3cd; border-right: 4px solid #ffc107;">
+        <div class="card-header">
+          <h3><i class="fas fa-exclamation-triangle"></i> إرشادات تسعير الباقات</h3>
+        </div>
+        <div class="card-body">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #ffc107; color: white;">
+                <th style="padding: 1rem; text-align: right;">نوع الباقة</th>
+                <th style="padding: 1rem; text-align: right;">السعر الأدنى</th>
+                <th style="padding: 1rem; text-align: right;">السعر الأقصى</th>
+                <th style="padding: 1rem; text-align: right;">ملاحظات</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 1rem;">اقتصادية</td>
+                <td style="padding: 1rem;">5,000 ريال</td>
+                <td style="padding: 1rem;">10,000 ريال</td>
+                <td style="padding: 1rem;">فندق 3 نجوم</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 1rem;">عائلية</td>
+                <td style="padding: 1rem;">10,000 ريال</td>
+                <td style="padding: 1rem;">20,000 ريال</td>
+                <td style="padding: 1rem;">فندق 4 نجوم</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem;">VIP</td>
+                <td style="padding: 1rem;">20,000 ريال</td>
+                <td style="padding: 1rem;">50,000 ريال</td>
+                <td style="padding: 1rem;">فندق 5 نجوم</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Compliance Status -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-check-circle"></i> حالة الالتزام</h2>
+        </div>
+        <div class="card-body">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+            <div style="text-align: center; padding: 1rem; background-color: #d4edda; border-radius: 8px;">
+              <h4 style="color: #155724;">الأسعار</h4>
+              <p style="font-size: 2rem; color: #28a745; font-weight: bold;">✓</p>
+              <p style="color: #155724;">ملتزم</p>
+            </div>
+            <div style="text-align: center; padding: 1rem; background-color: #d4edda; border-radius: 8px;">
+              <h4 style="color: #155724;">الخدمات</h4>
+              <p style="font-size: 2rem; color: #28a745; font-weight: bold;">✓</p>
+              <p style="color: #155724;">ملتزم</p>
+            </div>
+            <div style="text-align: center; padding: 1rem; background-color: #d4edda; border-radius: 8px;">
+              <h4 style="color: #155724;">الوثائق</h4>
+              <p style="font-size: 2rem; color: #28a745; font-weight: bold;">✓</p>
+              <p style="color: #155724;">ملتزم</p>
+            </div>
+            <div style="text-align: center; padding: 1rem; background-color: #d4edda; border-radius: 8px;">
+              <h4 style="color: #155724;">التقييمات</h4>
+              <p style="font-size: 2rem; color: #28a745; font-weight: bold;">✓</p>
+              <p style="color: #155724;">ممتاز</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="card mt-3" style="background-color: #d1ecf1; border-right: 4px solid #0c5460;">
+        <div class="card-header">
+          <h3><i class="fas fa-headset"></i> الدعم الفني</h3>
+        </div>
+        <div class="card-body">
+          <p>في حالة وجود أي استفسارات أو مشاكل تقنية، يرجى التواصل مع فريق الدعم الفني:</p>
+          <ul style="list-style-position: inside; margin-top: 1rem;">
+            <li><strong>البريد الإلكتروني:</strong> support@travel-monitor.gov.sa</li>
+            <li><strong>الهاتف:</strong> 920000000</li>
+            <li><strong>الدعم الفني:</strong> متاح 24/7</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 منصة مراقبة مكاتب السفر والسياحة. جميع الحقوق محفوظة.</p>
+      <p>تم تطويره بواسطة فريق التطوير - وزارة السياحة</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
  
