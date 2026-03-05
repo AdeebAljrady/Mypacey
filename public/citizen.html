@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة المواطن - منصة مراقبة مكاتب السفر</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="citizen">
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-globe"></i> منصة مراقبة السفر
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="admin.html">بوابة الوزارة</a></li>
+        <li><a href="citizen.html" class="active">بوابة المواطن</a></li>
+        <li><a href="office.html">بوابة المكتب</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" style="padding: 2rem;">
+    <div class="container">
+      <h1>بوابة المواطن</h1>
+      <p>تقديم الشكاوى والتحقق من اعتماد مكاتب السفر والاطلاع على الباقات المتاحة</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section>
+    <div class="container">
+      <!-- Verify Office -->
+      <div class="card">
+        <div class="card-header">
+          <h2><i class="fas fa-search"></i> التحقق من اعتماد المكتب</h2>
+        </div>
+        <div class="card-body">
+          <p style="margin-bottom: 1rem;">أدخل رقم ترخيص المكتب للتحقق من اعتماده وعرض باقاته:</p>
+          <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem;">
+            <input type="text" id="licenseNumber" placeholder="أدخل رقم الترخيص (مثلاً: 12345)">
+            <button class="btn btn-primary" onclick="verifyOfficeCredentials()">
+              <i class="fas fa-check-circle"></i> تحقق
+            </button>
+          </div>
+          <small style="color: #666; display: block; margin-top: 0.5rem;">
+            💡 جرب رقم الترخيص: 12345 أو 12346 أو 12347
+          </small>
+        </div>
+      </div>
+
+      <!-- Submit Complaint -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-file-alt"></i> تقديم شكوى</h2>
+        </div>
+        <div class="card-body">
+          <form id="complaintForm" onsubmit="handleComplaintSubmit(event)">
+            <div class="form-group">
+              <label for="citizenId">رقم الهوية الوطنية</label>
+              <input type="text" id="citizenId" placeholder="أدخل رقم هويتك" required>
+            </div>
+            <div class="form-group">
+              <label for="officeName">اسم المكتب</label>
+              <input type="text" id="officeName" placeholder="أدخل اسم المكتب" required>
+            </div>
+            <div class="form-group">
+              <label for="complaintDescription">وصف الشكوى</label>
+              <textarea id="complaintDescription" placeholder="اشرح تفاصيل الشكوى بوضوح" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="complaintCategory">فئة الشكوى</label>
+              <select id="complaintCategory" required>
+                <option value="">اختر فئة الشكوى</option>
+                <option value="أسعار">عدم الالتزام بالأسعار</option>
+                <option value="خدمات">عدم توفر الخدمات المتفق عليها</option>
+                <option value="تأشيرة">مشاكل في التأشيرة</option>
+                <option value="سلوك">سلوك غير احترافي</option>
+                <option value="أخرى">أخرى</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-paper-plane"></i> إرسال الشكوى
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Available Packages -->
+      <div class="card mt-3">
+        <div class="card-header">
+          <h2><i class="fas fa-suitcase"></i> الباقات المتاحة</h2>
+        </div>
+        <div class="card-body">
+          <p style="margin-bottom: 1.5rem;">تصفح الباقات المتاحة من مكاتب السفر المعتمدة:</p>
+          <div class="grid">
+            <div class="card">
+              <div class="card-header">
+                <h4>عمرة اقتصادية</h4>
+                <span class="badge badge-info">اقتصادية</span>
+              </div>
+              <div class="card-body">
+                <p><strong>السعر:</strong> 8,500 ريال</p>
+                <p><strong>المدة:</strong> 10 أيام</p>
+                <p><strong>المكتب:</strong> منار السفر</p>
+                <p><strong>الخدمات:</strong> فندق 3 نجوم، تأشيرة، مواصلات</p>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-success btn-small" onclick="showAlert('تم حفظ الباقة في قائمة المفضلة', 'success')">
+                  <i class="fas fa-heart"></i> إضافة للمفضلة
+                </button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h4>عمرة عائلية</h4>
+                <span class="badge badge-info">عائلية</span>
+              </div>
+              <div class="card-body">
+                <p><strong>السعر:</strong> 15,000 ريال</p>
+                <p><strong>المدة:</strong> 12 يوم</p>
+                <p><strong>المكتب:</strong> نسك للسياحة</p>
+                <p><strong>الخدمات:</strong> فندق 4 نجوم، تأشيرة، مواصلات، مرافق</p>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-success btn-small" onclick="showAlert('تم حفظ الباقة في قائمة المفضلة', 'success')">
+                  <i class="fas fa-heart"></i> إضافة للمفضلة
+                </button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h4>عمرة VIP</h4>
+                <span class="badge badge-info">VIP</span>
+              </div>
+              <div class="card-body">
+                <p><strong>السعر:</strong> 25,000 ريال</p>
+                <p><strong>المدة:</strong> 14 يوم</p>
+                <p><strong>المكتب:</strong> الرحلة الذهبية</p>
+                <p><strong>الخدمات:</strong> فندق 5 نجوم، تأشيرة، مواصلات خاصة، مرافق</p>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-success btn-small" onclick="showAlert('تم حفظ الباقة في قائمة المفضلة', 'success')">
+                  <i class="fas fa-heart"></i> إضافة للمفضلة
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Important Information -->
+      <div class="card mt-3" style="background-color: #f0f7ff; border-right: 4px solid #0066cc;">
+        <div class="card-header">
+          <h3><i class="fas fa-info-circle"></i> معلومات مهمة</h3>
+        </div>
+        <div class="card-body">
+          <ul style="list-style-position: inside;">
+            <li>تأكد من اعتماد المكتب قبل التعامل معه</li>
+            <li>قارن بين الأسعار والخدمات المقدمة من مكاتب مختلفة</li>
+            <li>احتفظ بجميع العقود والإيصالات</li>
+            <li>لا تتردد في تقديم شكوى في حالة عدم الالتزام بالخدمات المتفق عليها</li>
+            <li>سيتم التحقق من شكواك خلال 48 ساعة</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 منصة مراقبة مكاتب السفر والسياحة. جميع الحقوق محفوظة.</p>
+      <p>تم تطويره بواسطة فريق التطوير - وزارة السياحة</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
  
